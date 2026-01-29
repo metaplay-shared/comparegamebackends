@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { BackendCard } from '@/components/BackendCard';
-import { backends, educationalContent, getBackendsByLiveServiceFit } from '@/lib/backends';
+import { backends, educationalContent } from '@/lib/backends';
 
 export default function HomePage() {
-  const comprehensiveBackends = getBackendsByLiveServiceFit('comprehensive');
-  const partialBackends = backends.filter(b => b.liveServiceFit === 'partial' || b.liveServiceFit === 'minimal');
 
   return (
     <div>
@@ -214,43 +212,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Platform Overview */}
+      {/* Game Backends */}
       <section className="container-page py-16 md:py-20">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold">Full Live Service Platforms</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">Game Backends</h2>
             <p className="text-slate-600 dark:text-slate-400 mt-2">
-              Comprehensive solutions with everything you need to run a live service game
+              Compare game backend platforms for live service games
             </p>
           </div>
           <Link
-            href="/backends?fit=comprehensive"
+            href="/backends"
             className="hidden md:inline-flex btn-ghost text-primary-600 hover:text-primary-700"
           >
             View all →
           </Link>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {comprehensiveBackends.slice(0, 6).map((backend) => (
+          {backends.map((backend) => (
             <BackendCard key={backend.slug} backend={backend} />
           ))}
-        </div>
-      </section>
-
-      {/* Partial Solutions */}
-      <section className="bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
-        <div className="container-page py-16 md:py-20">
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold">Specialized Solutions</h2>
-            <p className="text-slate-600 dark:text-slate-400 mt-2">
-              Focused tools for specific needs - may require additional services for full live ops
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {partialBackends.slice(0, 3).map((backend) => (
-              <BackendCard key={backend.slug} backend={backend} />
-            ))}
-          </div>
         </div>
       </section>
 

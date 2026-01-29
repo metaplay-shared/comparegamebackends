@@ -30,6 +30,15 @@ const config: Config = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
+      animation: {
+        'text-shimmer': 'text-shimmer 2s ease-in-out infinite',
+      },
+      keyframes: {
+        'text-shimmer': {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-100% 0' },
+        },
+      },
     },
   },
   plugins: [],
