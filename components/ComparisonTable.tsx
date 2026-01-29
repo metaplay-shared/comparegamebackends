@@ -3,25 +3,18 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
-  Backend,
   backends,
   featureLabels,
   featureCategories,
-  typeLabels,
-  pricingLabels,
-  liveServiceFitLabels,
   LiveOpsFeatures,
+  isFeatureSupported,
+  getFeatureSourceUrl,
+  getFeatureDescription,
 } from '@/lib/backends';
+import { FeatureTooltip } from './FeatureTooltip';
 
-type SortField = 'name' | 'type' | 'pricingModel' | 'featureCount';
+type SortField = 'name';
 type SortDirection = 'asc' | 'desc';
-
-interface Filters {
-  type: Backend['type'] | 'all';
-  pricing: Backend['pricingModel'] | 'all';
-  fit: Backend['liveServiceFit'] | 'all';
-  featureCategory: string | 'all';
-}
 
 function CheckIcon() {
   return (
@@ -47,62 +40,32 @@ function XIcon() {
   );
 }
 
+// Get all feature keys for the "All" category
+const allFeatureKeys = Object.values(featureCategories).flat();
+
 export function ComparisonTable() {
-  const [sortField, setSortField] = useState<SortField>('featureCount');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
-  const [filters, setFilters] = useState<Filters>({
-    type: 'all',
-    pricing: 'all',
-    fit: 'all',
-    featureCategory: 'all',
-  });
-  const [selectedCategory, setSelectedCategory] = useState<string>('Live Operations');
+  const [sortField, setSortField] = useState<SortField>('name');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
-  const filteredAndSorted = useMemo(() => {
-    let result = [...backends];
-
-    // Apply filters
-    if (filters.type !== 'all') {
-      result = result.filter((b) => b.type === filters.type);
-    }
-    if (filters.pricing !== 'all') {
-      result = result.filter((b) => b.pricingModel === filters.pricing);
-    }
-    if (filters.fit !== 'all') {
-      result = result.filter((b) => b.liveServiceFit === filters.fit);
-    }
+  const sortedBackends = useMemo(() => {
+    const result = [...backends];
 
     // Apply sorting
     result.sort((a, b) => {
-      let comparison = 0;
-      switch (sortField) {
-        case 'name':
-          comparison = a.name.localeCompare(b.name);
-          break;
-        case 'type':
-          comparison = a.type.localeCompare(b.type);
-          break;
-        case 'pricingModel':
-          comparison = a.pricingModel.localeCompare(b.pricingModel);
-          break;
-        case 'featureCount':
-          const aCount = Object.values(a.features).filter(Boolean).length;
-          const bCount = Object.values(b.features).filter(Boolean).length;
-          comparison = aCount - bCount;
-          break;
-      }
+      const comparison = a.name.localeCompare(b.name);
       return sortDirection === 'asc' ? comparison : -comparison;
     });
 
     return result;
-  }, [sortField, sortDirection, filters]);
+  }, [sortDirection]);
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
       setSortField(field);
-      setSortDirection('desc');
+      setSortDirection('asc');
     }
   };
 
@@ -123,67 +86,17 @@ export function ComparisonTable() {
     );
   };
 
-  const categoryKeys = Object.keys(featureCategories);
-  const selectedFeatures = featureCategories[selectedCategory as keyof typeof featureCategories] || [];
+  const categoryKeys = ['All', ...Object.keys(featureCategories)];
+  const selectedFeatures = selectedCategory === 'All'
+    ? allFeatureKeys
+    : featureCategories[selectedCategory as keyof typeof featureCategories] || [];
 
   return (
     <div>
-      {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Platform Type
-          </label>
-          <select
-            value={filters.type}
-            onChange={(e) => setFilters({ ...filters, type: e.target.value as Filters['type'] })}
-            className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm"
-          >
-            <option value="all">All Types</option>
-            {Object.entries(typeLabels).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Pricing Model
-          </label>
-          <select
-            value={filters.pricing}
-            onChange={(e) => setFilters({ ...filters, pricing: e.target.value as Filters['pricing'] })}
-            className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm"
-          >
-            <option value="all">All Pricing</option>
-            {Object.entries(pricingLabels).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Live Service Coverage
-          </label>
-          <select
-            value={filters.fit}
-            onChange={(e) => setFilters({ ...filters, fit: e.target.value as Filters['fit'] })}
-            className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm"
-          >
-            <option value="all">All Coverage Levels</option>
-            {Object.entries(liveServiceFitLabels).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      {/* Hint about hovering for tooltips */}
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+        Hover over a <span className="text-green-500">✓</span> to see details and source documentation
+      </p>
 
       {/* Feature Category Tabs */}
       <div className="mb-4">
@@ -209,34 +122,33 @@ export function ComparisonTable() {
 
       {/* Results count */}
       <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-        Showing {filteredAndSorted.length} of {backends.length} platforms
+        Showing {sortedBackends.length} of {backends.length} game backends
       </p>
+
+      {/* Scroll hint for All view */}
+      {selectedCategory === 'All' && (
+        <div className="mb-2 text-right">
+          <span
+            className="inline-block text-xs font-medium bg-gradient-to-r from-slate-400 via-primary-500 to-slate-400 dark:from-slate-500 dark:via-primary-400 dark:to-slate-500 bg-clip-text text-transparent bg-[length:200%_100%] animate-text-shimmer"
+          >
+            Scroll →
+          </span>
+        </div>
+      )}
 
       {/* Table */}
       <div className="overflow-x-auto scrollbar-thin">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200 dark:border-slate-700">
-              <th className="text-left py-3 px-4 font-semibold sticky left-0 bg-white dark:bg-slate-900">
+              <th className="text-left py-3 px-4 font-semibold sticky left-0 z-10 bg-white dark:bg-slate-900">
                 <button
                   onClick={() => handleSort('name')}
                   className="hover:text-primary-600 inline-flex items-center"
                 >
-                  Platform
+                  Game Backend
                   <SortIcon field="name" />
                 </button>
-              </th>
-              <th className="text-left py-3 px-4 font-semibold">
-                <button
-                  onClick={() => handleSort('type')}
-                  className="hover:text-primary-600 inline-flex items-center"
-                >
-                  Type
-                  <SortIcon field="type" />
-                </button>
-              </th>
-              <th className="text-left py-3 px-4 font-semibold">
-                Coverage
               </th>
               {selectedFeatures.map((feature) => (
                 <th key={feature} className="text-center py-3 px-2 font-semibold whitespace-nowrap">
@@ -246,12 +158,12 @@ export function ComparisonTable() {
             </tr>
           </thead>
           <tbody>
-            {filteredAndSorted.map((backend) => (
+            {sortedBackends.map((backend) => (
               <tr
                 key={backend.slug}
                 className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
-                <td className="py-3 px-4 sticky left-0 bg-white dark:bg-slate-900">
+                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-slate-900">
                   <Link
                     href={`/backends/${backend.slug}`}
                     className="font-medium text-primary-600 hover:text-primary-700 hover:underline"
@@ -259,46 +171,31 @@ export function ComparisonTable() {
                     {backend.name}
                   </Link>
                 </td>
-                <td className="py-3 px-4">
-                  <span
-                    className={`badge ${
-                      backend.type === 'open-source'
-                        ? 'badge-green'
-                        : backend.type === 'full-platform'
-                        ? 'badge-primary'
-                        : 'badge-amber'
-                    }`}
-                  >
-                    {typeLabels[backend.type]}
-                  </span>
-                </td>
-                <td className="py-3 px-4">
-                  <span
-                    className={`badge ${
-                      backend.liveServiceFit === 'comprehensive'
-                        ? 'badge-green'
-                        : backend.liveServiceFit === 'partial'
-                        ? 'badge-amber'
-                        : 'badge-slate'
-                    }`}
-                  >
-                    {liveServiceFitLabels[backend.liveServiceFit]}
-                  </span>
-                </td>
-                {selectedFeatures.map((feature) => (
-                  <td key={feature} className="py-3 px-2 text-center">
-                    {backend.features[feature as keyof LiveOpsFeatures] ? <CheckIcon /> : <XIcon />}
-                  </td>
-                ))}
+                {selectedFeatures.map((feature) => {
+                  const featureValue = backend.features[feature as keyof LiveOpsFeatures];
+                  const hasFeature = isFeatureSupported(featureValue);
+                  const sourceUrl = getFeatureSourceUrl(featureValue);
+                  const description = getFeatureDescription(featureValue);
+
+                  return (
+                    <td key={feature} className="py-3 px-2 text-center">
+                      <FeatureTooltip description={description} sourceUrl={sourceUrl}>
+                        <span className={`inline-flex justify-center ${description ? 'cursor-help' : ''}`}>
+                          {hasFeature ? <CheckIcon /> : <XIcon />}
+                        </span>
+                      </FeatureTooltip>
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {filteredAndSorted.length === 0 && (
+      {sortedBackends.length === 0 && (
         <div className="text-center py-12 text-slate-500 dark:text-slate-400">
-          No platforms match your current filters. Try adjusting your criteria.
+          No game backends match your current filters. Try adjusting your criteria.
         </div>
       )}
     </div>
