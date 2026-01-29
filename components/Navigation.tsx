@@ -7,14 +7,15 @@ import { useTheme } from './ThemeProvider';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/backends', label: 'Compare' },
-  { href: '/categories/indie', label: 'By Category' },
+  { href: '/learn', label: 'Learn' },
+  { href: '/backends', label: 'Platforms' },
+  { href: '/games/f2p-mobile', label: 'By Game Type' },
   { href: '/about', label: 'About' },
 ];
 
 export function Navigation() {
   const pathname = usePathname();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleTheme = () => {
@@ -23,6 +24,11 @@ export function Navigation() {
     } else {
       setTheme('dark');
     }
+  };
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
   };
 
   return (
@@ -44,7 +50,7 @@ export function Navigation() {
               <line x1="8" y1="21" x2="16" y2="21" />
               <line x1="12" y1="17" x2="12" y2="21" />
             </svg>
-            <span className="hidden sm:inline">GameBackends</span>
+            <span className="hidden sm:inline">Compare Game Backends</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -54,7 +60,7 @@ export function Navigation() {
                 key={link.href}
                 href={link.href}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === link.href
+                  isActive(link.href)
                     ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                 }`}
@@ -121,7 +127,7 @@ export function Navigation() {
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    pathname === link.href
+                    isActive(link.href)
                       ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50'
                   }`}

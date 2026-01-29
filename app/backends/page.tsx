@@ -1,10 +1,11 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { ComparisonTable } from '@/components/ComparisonTable';
 
 export const metadata: Metadata = {
-  title: 'Compare Game Backends',
+  title: 'Compare Live Service Platforms',
   description:
-    'Interactive comparison table of all game backend solutions. Filter by type, pricing, and features to find the perfect backend for your multiplayer game.',
+    'Compare game backend platforms for live service games. Filter by features, pricing, and coverage to find the right backend for your game.',
 };
 
 export default function BackendsPage() {
@@ -12,10 +13,10 @@ export default function BackendsPage() {
     <div className="container-page py-12 md:py-16">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">Compare Game Backends</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">Compare Live Service Platforms</h1>
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">
-          Use the filters below to narrow down your options. Click on any backend name to see
-          detailed information, pros and cons, and platform support.
+          Compare backend platforms based on their support for live service game features.
+          Filter by category to see how each platform handles different aspects of live ops.
         </p>
       </div>
 
@@ -24,7 +25,7 @@ export default function BackendsPage() {
         <ComparisonTable />
       </div>
 
-      {/* Help Section */}
+      {/* Understanding the Comparison */}
       <div className="mt-12 grid md:grid-cols-3 gap-6">
         <div className="card p-6">
           <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4">
@@ -38,14 +39,37 @@ export default function BackendsPage() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
           </div>
-          <h3 className="font-semibold mb-2">Commercial Solutions</h3>
+          <h3 className="font-semibold mb-2">Full Platforms</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Fully managed services with support, SLAs, and enterprise features. Best for teams
-            that want to focus on game development.
+            Comprehensive solutions that cover most live service needs out of the box.
+            Best for teams wanting an integrated solution.
+          </p>
+        </div>
+
+        <div className="card p-6">
+          <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
+            <svg
+              className="w-5 h-5 text-amber-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              />
+            </svg>
+          </div>
+          <h3 className="font-semibold mb-2">Partial Solutions</h3>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Specialized tools that excel at specific tasks like networking or matchmaking.
+            May require additional services for full live ops.
           </p>
         </div>
 
@@ -67,33 +91,22 @@ export default function BackendsPage() {
           </div>
           <h3 className="font-semibold mb-2">Open Source</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Self-hosted solutions with full control over your infrastructure. Great for teams
-            with DevOps expertise and custom requirements.
+            Self-hostable solutions offering flexibility and control. Ideal for teams
+            with DevOps capability who want to own their infrastructure.
           </p>
         </div>
+      </div>
 
-        <div className="card p-6">
-          <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
-            <svg
-              className="w-5 h-5 text-amber-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <h3 className="font-semibold mb-2">Pricing Models</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            Options range from completely free open-source to enterprise pricing. Many offer
-            freemium tiers perfect for prototyping.
-          </p>
-        </div>
+      {/* Learn More CTA */}
+      <div className="mt-12 card p-8 text-center bg-slate-50 dark:bg-slate-800/50">
+        <h2 className="text-xl font-semibold mb-4">New to live service games?</h2>
+        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto">
+          Learn what it takes to run a successful live service game before choosing your
+          backend infrastructure.
+        </p>
+        <Link href="/learn" className="btn-primary">
+          Read Our Guides
+        </Link>
       </div>
     </div>
   );

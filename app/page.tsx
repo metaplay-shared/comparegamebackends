@@ -1,13 +1,10 @@
 import Link from 'next/link';
 import { BackendCard } from '@/components/BackendCard';
-import { backends, categories } from '@/lib/backends';
+import { backends, educationalContent, getBackendsByLiveServiceFit } from '@/lib/backends';
 
 export default function HomePage() {
-  // Featured backends (top rated)
-  const featuredBackends = [...backends].sort((a, b) => b.rating - a.rating).slice(0, 4);
-
-  // Open source backends
-  const openSourceBackends = backends.filter((b) => b.type === 'open-source').slice(0, 3);
+  const comprehensiveBackends = getBackendsByLiveServiceFit('comprehensive');
+  const partialBackends = backends.filter(b => b.liveServiceFit === 'partial' || b.liveServiceFit === 'minimal');
 
   return (
     <div>
@@ -16,141 +13,271 @@ export default function HomePage() {
         <div className="container-page py-20 md:py-28">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Find the perfect backend for your{' '}
-              <span className="text-primary-600">game</span>
+              Find the best game backend{' '}
+              <span className="text-primary-600">for your game</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-              Compare game backend solutions side by side. From indie projects to
-              enterprise-scale MMOs, we help you choose the right infrastructure for
-              your multiplayer game.
+              Compare game backend platforms side-by-side. Understand what you need,
+              see how they stack up, and make the right choice for your project.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/backends" className="btn-primary text-center">
-                Compare All Backends
+                Compare Backends
               </Link>
-              <Link href="/categories/indie" className="btn-secondary text-center">
-                Best for Indies
+              <Link href="#why-backend" className="btn-secondary text-center">
+                Why Do I Need One?
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="border-b border-slate-200 dark:border-slate-800">
-        <div className="container-page py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary-600">{backends.length}</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">Backends Reviewed</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary-600">12</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">Features Compared</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary-600">{categories.length}</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">Use Case Categories</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-primary-600">6</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">Platforms Covered</div>
-            </div>
-          </div>
+      {/* Why Do You Need a Backend? */}
+      <section id="why-backend" className="container-page py-16 md:py-20">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Why do you need a game backend?</h2>
+          <p className="text-lg text-slate-600 dark:text-slate-400">
+            The most successful games today aren&apos;t just shipped and forgotten.
+            They&apos;re operated as <strong className="text-slate-900 dark:text-slate-100">live services</strong> -
+            continuously updated, optimized, and evolved based on player data and engagement.
+          </p>
         </div>
-      </section>
 
-      {/* Featured Backends */}
-      <section className="container-page py-16 md:py-20">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold">Top Rated Backends</h2>
-            <p className="text-slate-600 dark:text-slate-400 mt-2">
-              Highest rated game backend solutions based on features and developer experience
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="text-center">
+            <div className="text-4xl font-bold text-primary-600 mb-2">95%</div>
+            <p className="text-slate-600 dark:text-slate-400">
+              of top-grossing mobile games operate as live services
             </p>
           </div>
-          <Link
-            href="/backends"
-            className="hidden md:inline-flex btn-ghost text-primary-600 hover:text-primary-700"
-          >
-            View all →
-          </Link>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-primary-600 mb-2">10x</div>
+            <p className="text-slate-600 dark:text-slate-400">
+              higher lifetime value from live service players vs. one-time purchases
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-bold text-primary-600 mb-2">Years</div>
+            <p className="text-slate-600 dark:text-slate-400">
+              of ongoing revenue from a single game, not months
+            </p>
+          </div>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredBackends.map((backend) => (
-            <BackendCard key={backend.slug} backend={backend} />
-          ))}
-        </div>
-        <div className="mt-8 text-center md:hidden">
-          <Link href="/backends" className="btn-secondary">
-            View All Backends
-          </Link>
+
+        <div className="card p-8 max-w-3xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            A game backend is the infrastructure that makes live service possible. It handles
+            player accounts, saves progress to the cloud, manages your game economy, delivers
+            live events, tracks analytics, and enables everything that keeps players engaged
+            long after launch.
+          </p>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
+            Without a proper backend, you&apos;re limited to single-player experiences or
+            building everything from scratch. With the right backend, you can focus on
+            making a great game while the infrastructure handles the rest.
+          </p>
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* What is Live Service? */}
       <section className="bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
         <div className="container-page py-16 md:py-20">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold">Browse by Category</h2>
-            <p className="text-slate-600 dark:text-slate-400 mt-2">
-              Find the right backend for your specific game type
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">What does &quot;live service&quot; mean?</h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400">
+              A live service game is designed to evolve over time, keeping players engaged
+              through regular updates, events, and new content.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {categories.map((category) => (
-              <Link
-                key={category.slug}
-                href={`/categories/${category.slug}`}
-                className="card p-6 text-center hover:shadow-md hover:border-primary-300 dark:hover:border-primary-700 transition-all group"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 mx-auto mb-4 flex items-center justify-center">
-                  <CategoryIcon category={category.slug} />
-                </div>
-                <h3 className="font-semibold group-hover:text-primary-600 transition-colors">
-                  {category.name}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">
-                  {category.description}
-                </p>
-              </Link>
-            ))}
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="card p-6">
+              <div className="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Ongoing Updates</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
+                New content, features, and improvements delivered regularly to keep the game fresh.
+              </p>
+            </div>
+
+            <div className="card p-6">
+              <div className="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Live Events</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
+                Time-limited events, seasons, and special occasions that create urgency and excitement.
+              </p>
+            </div>
+
+            <div className="card p-6">
+              <div className="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Data-Driven</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
+                Analytics and A/B testing to understand players and optimize the experience.
+              </p>
+            </div>
+
+            <div className="card p-6">
+              <div className="w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-lg mb-2">Sustainable Revenue</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
+                Ongoing monetization through battle passes, cosmetics, and in-app purchases.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link href="/learn/what-is-live-service" className="btn-secondary">
+              Learn More About Live Service Games
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Open Source Section */}
+      {/* What a Backend Provides */}
       <section className="container-page py-16 md:py-20">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold">Open Source Options</h2>
-            <p className="text-slate-600 dark:text-slate-400 mt-2">
-              Free and open source game backend solutions you can self-host
-            </p>
-          </div>
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">What a game backend gives you</h2>
+          <p className="text-lg text-slate-600 dark:text-slate-400">
+            The right backend platform provides the tools and infrastructure to run
+            your game as a successful live service.
+          </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {openSourceBackends.map((backend) => (
-            <BackendCard key={backend.slug} backend={backend} />
-          ))}
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <FeatureBlock
+            title="Player Management"
+            items={['Authentication & accounts', 'Cloud save & progression', 'Player segmentation']}
+          />
+          <FeatureBlock
+            title="Live Operations"
+            items={['Remote config & updates', 'Live events & seasons', 'A/B testing']}
+          />
+          <FeatureBlock
+            title="Economy & Monetization"
+            items={['Virtual currencies', 'Inventory & items', 'IAP & offers']}
+          />
+          <FeatureBlock
+            title="Engagement"
+            items={['Leaderboards', 'Achievements', 'Social features']}
+          />
+          <FeatureBlock
+            title="Analytics"
+            items={['Player behavior tracking', 'Revenue analytics', 'Custom dashboards']}
+          />
+          <FeatureBlock
+            title="Infrastructure"
+            items={['Global scaling', 'Multiplayer support', 'Admin tools']}
+          />
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Compare Platforms CTA */}
       <section className="bg-primary-600 dark:bg-primary-700">
         <div className="container-page py-16 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Ready to choose your game backend?
+            Ready to compare your options?
           </h2>
           <p className="text-primary-100 mb-8 max-w-2xl mx-auto">
-            Use our comparison tool to filter by features, pricing, and platform support
-            to find the perfect fit for your project.
+            We&apos;ve analyzed the leading game backend platforms so you can make an informed decision.
+            See how they compare on features, pricing, and live service capabilities.
           </p>
           <Link
             href="/backends"
             className="inline-flex items-center justify-center rounded-lg font-medium bg-white text-primary-600 hover:bg-primary-50 px-6 py-3 transition-colors"
           >
-            Start Comparing
+            Compare All Platforms
+          </Link>
+        </div>
+      </section>
+
+      {/* Platform Overview */}
+      <section className="container-page py-16 md:py-20">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold">Full Live Service Platforms</h2>
+            <p className="text-slate-600 dark:text-slate-400 mt-2">
+              Comprehensive solutions with everything you need to run a live service game
+            </p>
+          </div>
+          <Link
+            href="/backends?fit=comprehensive"
+            className="hidden md:inline-flex btn-ghost text-primary-600 hover:text-primary-700"
+          >
+            View all →
+          </Link>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {comprehensiveBackends.slice(0, 6).map((backend) => (
+            <BackendCard key={backend.slug} backend={backend} />
+          ))}
+        </div>
+      </section>
+
+      {/* Partial Solutions */}
+      <section className="bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+        <div className="container-page py-16 md:py-20">
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold">Specialized Solutions</h2>
+            <p className="text-slate-600 dark:text-slate-400 mt-2">
+              Focused tools for specific needs - may require additional services for full live ops
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {partialBackends.slice(0, 3).map((backend) => (
+              <BackendCard key={backend.slug} backend={backend} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Learn More */}
+      <section className="container-page py-16 md:py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold">Want to learn more?</h2>
+          <p className="text-slate-600 dark:text-slate-400 mt-2">
+            Dive deeper into live service game operations
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {educationalContent.slice(0, 3).map((content) => (
+            <Link
+              key={content.slug}
+              href={`/learn/${content.slug}`}
+              className="card p-6 hover:shadow-md hover:border-primary-300 dark:hover:border-primary-700 transition-all group"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 text-sm font-bold">
+                  {content.order}
+                </span>
+                <span className="text-sm text-slate-500">Guide</span>
+              </div>
+              <h3 className="font-semibold text-lg mb-2 group-hover:text-primary-600 transition-colors">
+                {content.title}
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">
+                {content.description}
+              </p>
+            </Link>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link href="/learn" className="btn-secondary">
+            View All Guides
           </Link>
         </div>
       </section>
@@ -158,45 +285,20 @@ export default function HomePage() {
   );
 }
 
-function CategoryIcon({ category }: { category: string }) {
-  const iconClass = 'w-6 h-6 text-primary-600';
-
-  switch (category) {
-    case 'mmo':
-      return (
-        <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-        </svg>
-      );
-    case 'mobile':
-      return (
-        <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      );
-    case 'indie':
-      return (
-        <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-        </svg>
-      );
-    case 'competitive':
-      return (
-        <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-        </svg>
-      );
-    case 'casual':
-      return (
-        <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      );
-    default:
-      return (
-        <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      );
-  }
+function FeatureBlock({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="card p-6">
+      <h3 className="font-semibold text-lg mb-3">{title}</h3>
+      <ul className="space-y-2">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-sm">
+            <svg className="w-4 h-4 text-green-500 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            </svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

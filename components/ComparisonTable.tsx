@@ -2,15 +2,25 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Backend, backends, featureLabels, typeLabels, pricingLabels } from '@/lib/backends';
+import {
+  Backend,
+  backends,
+  featureLabels,
+  featureCategories,
+  typeLabels,
+  pricingLabels,
+  liveServiceFitLabels,
+  LiveOpsFeatures,
+} from '@/lib/backends';
 
-type SortField = 'name' | 'rating' | 'type' | 'pricingModel';
+type SortField = 'name' | 'type' | 'pricingModel' | 'featureCount';
 type SortDirection = 'asc' | 'desc';
 
 interface Filters {
   type: Backend['type'] | 'all';
   pricing: Backend['pricingModel'] | 'all';
-  feature: keyof Backend['features'] | 'all';
+  fit: Backend['liveServiceFit'] | 'all';
+  featureCategory: string | 'all';
 }
 
 function CheckIcon() {
@@ -38,13 +48,15 @@ function XIcon() {
 }
 
 export function ComparisonTable() {
-  const [sortField, setSortField] = useState<SortField>('rating');
+  const [sortField, setSortField] = useState<SortField>('featureCount');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const [filters, setFilters] = useState<Filters>({
     type: 'all',
     pricing: 'all',
-    feature: 'all',
+    fit: 'all',
+    featureCategory: 'all',
   });
+  const [selectedCategory, setSelectedCategory] = useState<string>('Live Operations');
 
   const filteredAndSorted = useMemo(() => {
     let result = [...backends];
@@ -56,9 +68,8 @@ export function ComparisonTable() {
     if (filters.pricing !== 'all') {
       result = result.filter((b) => b.pricingModel === filters.pricing);
     }
-    if (filters.feature !== 'all') {
-      const featureKey = filters.feature as keyof Backend['features'];
-      result = result.filter((b) => b.features[featureKey]);
+    if (filters.fit !== 'all') {
+      result = result.filter((b) => b.liveServiceFit === filters.fit);
     }
 
     // Apply sorting
@@ -68,14 +79,16 @@ export function ComparisonTable() {
         case 'name':
           comparison = a.name.localeCompare(b.name);
           break;
-        case 'rating':
-          comparison = a.rating - b.rating;
-          break;
         case 'type':
           comparison = a.type.localeCompare(b.type);
           break;
         case 'pricingModel':
           comparison = a.pricingModel.localeCompare(b.pricingModel);
+          break;
+        case 'featureCount':
+          const aCount = Object.values(a.features).filter(Boolean).length;
+          const bCount = Object.values(b.features).filter(Boolean).length;
+          comparison = aCount - bCount;
           break;
       }
       return sortDirection === 'asc' ? comparison : -comparison;
@@ -89,7 +102,7 @@ export function ComparisonTable() {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
       setSortField(field);
-      setSortDirection('asc');
+      setSortDirection('desc');
     }
   };
 
@@ -110,7 +123,8 @@ export function ComparisonTable() {
     );
   };
 
-  const featureKeys = Object.keys(featureLabels) as (keyof Backend['features'])[];
+  const categoryKeys = Object.keys(featureCategories);
+  const selectedFeatures = featureCategories[selectedCategory as keyof typeof featureCategories] || [];
 
   return (
     <div>
@@ -118,7 +132,7 @@ export function ComparisonTable() {
       <div className="flex flex-wrap gap-4 mb-6">
         <div>
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Type
+            Platform Type
           </label>
           <select
             value={filters.type}
@@ -136,7 +150,7 @@ export function ComparisonTable() {
 
         <div>
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Pricing
+            Pricing Model
           </label>
           <select
             value={filters.pricing}
@@ -154,15 +168,15 @@ export function ComparisonTable() {
 
         <div>
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-            Must Have Feature
+            Live Service Coverage
           </label>
           <select
-            value={filters.feature}
-            onChange={(e) => setFilters({ ...filters, feature: e.target.value as Filters['feature'] })}
+            value={filters.fit}
+            onChange={(e) => setFilters({ ...filters, fit: e.target.value as Filters['fit'] })}
             className="rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-3 py-2 text-sm"
           >
-            <option value="all">Any Feature</option>
-            {Object.entries(featureLabels).map(([value, label]) => (
+            <option value="all">All Coverage Levels</option>
+            {Object.entries(liveServiceFitLabels).map(([value, label]) => (
               <option key={value} value={value}>
                 {label}
               </option>
@@ -171,9 +185,31 @@ export function ComparisonTable() {
         </div>
       </div>
 
+      {/* Feature Category Tabs */}
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+          Feature Category
+        </label>
+        <div className="flex flex-wrap gap-2">
+          {categoryKeys.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                selectedCategory === cat
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Results count */}
       <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-        Showing {filteredAndSorted.length} of {backends.length} backends
+        Showing {filteredAndSorted.length} of {backends.length} platforms
       </p>
 
       {/* Table */}
@@ -181,12 +217,12 @@ export function ComparisonTable() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200 dark:border-slate-700">
-              <th className="text-left py-3 px-4 font-semibold">
+              <th className="text-left py-3 px-4 font-semibold sticky left-0 bg-white dark:bg-slate-900">
                 <button
                   onClick={() => handleSort('name')}
                   className="hover:text-primary-600 inline-flex items-center"
                 >
-                  Name
+                  Platform
                   <SortIcon field="name" />
                 </button>
               </th>
@@ -200,26 +236,11 @@ export function ComparisonTable() {
                 </button>
               </th>
               <th className="text-left py-3 px-4 font-semibold">
-                <button
-                  onClick={() => handleSort('pricingModel')}
-                  className="hover:text-primary-600 inline-flex items-center"
-                >
-                  Pricing
-                  <SortIcon field="pricingModel" />
-                </button>
+                Coverage
               </th>
-              <th className="text-left py-3 px-4 font-semibold">
-                <button
-                  onClick={() => handleSort('rating')}
-                  className="hover:text-primary-600 inline-flex items-center"
-                >
-                  Rating
-                  <SortIcon field="rating" />
-                </button>
-              </th>
-              {featureKeys.slice(0, 6).map((feature) => (
+              {selectedFeatures.map((feature) => (
                 <th key={feature} className="text-center py-3 px-2 font-semibold whitespace-nowrap">
-                  <span className="text-xs">{featureLabels[feature]}</span>
+                  <span className="text-xs">{featureLabels[feature as keyof LiveOpsFeatures]}</span>
                 </th>
               ))}
             </tr>
@@ -230,7 +251,7 @@ export function ComparisonTable() {
                 key={backend.slug}
                 className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
-                <td className="py-3 px-4">
+                <td className="py-3 px-4 sticky left-0 bg-white dark:bg-slate-900">
                   <Link
                     href={`/backends/${backend.slug}`}
                     className="font-medium text-primary-600 hover:text-primary-700 hover:underline"
@@ -243,9 +264,9 @@ export function ComparisonTable() {
                     className={`badge ${
                       backend.type === 'open-source'
                         ? 'badge-green'
-                        : backend.type === 'commercial'
+                        : backend.type === 'full-platform'
                         ? 'badge-primary'
-                        : 'badge-purple'
+                        : 'badge-amber'
                     }`}
                   >
                     {typeLabels[backend.type]}
@@ -254,27 +275,19 @@ export function ComparisonTable() {
                 <td className="py-3 px-4">
                   <span
                     className={`badge ${
-                      backend.pricingModel === 'free'
+                      backend.liveServiceFit === 'comprehensive'
                         ? 'badge-green'
-                        : backend.pricingModel === 'freemium'
-                        ? 'badge-primary'
-                        : backend.pricingModel === 'paid'
+                        : backend.liveServiceFit === 'partial'
                         ? 'badge-amber'
                         : 'badge-slate'
                     }`}
                   >
-                    {pricingLabels[backend.pricingModel]}
+                    {liveServiceFitLabels[backend.liveServiceFit]}
                   </span>
                 </td>
-                <td className="py-3 px-4">
-                  <div className="flex items-center">
-                    <span className="text-amber-500 mr-1">★</span>
-                    {backend.rating.toFixed(1)}
-                  </div>
-                </td>
-                {featureKeys.slice(0, 6).map((feature) => (
+                {selectedFeatures.map((feature) => (
                   <td key={feature} className="py-3 px-2 text-center">
-                    {backend.features[feature] ? <CheckIcon /> : <XIcon />}
+                    {backend.features[feature as keyof LiveOpsFeatures] ? <CheckIcon /> : <XIcon />}
                   </td>
                 ))}
               </tr>
@@ -285,7 +298,7 @@ export function ComparisonTable() {
 
       {filteredAndSorted.length === 0 && (
         <div className="text-center py-12 text-slate-500 dark:text-slate-400">
-          No backends match your current filters. Try adjusting your criteria.
+          No platforms match your current filters. Try adjusting your criteria.
         </div>
       )}
     </div>

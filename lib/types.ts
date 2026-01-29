@@ -1,21 +1,56 @@
-export type BackendType = 'commercial' | 'open-source' | 'hybrid';
-export type PricingModel = 'free' | 'freemium' | 'paid' | 'enterprise';
-export type UseCase = 'mmo' | 'mobile' | 'indie' | 'competitive' | 'casual' | 'social';
+export type BackendType = 'full-platform' | 'partial-solution' | 'open-source';
+export type PricingModel = 'free' | 'freemium' | 'usage-based' | 'enterprise';
+export type GameType = 'f2p-mobile' | 'live-service-pc' | 'competitive' | 'casual-social' | 'mmo';
 export type Platform = 'unity' | 'unreal' | 'godot' | 'custom' | 'html5' | 'native';
 
-export interface BackendFeatures {
-  matchmaking: boolean;
-  leaderboards: boolean;
-  cloudSave: boolean;
-  analytics: boolean;
-  multiplayer: boolean;
-  serverless: boolean;
+// Live service focused feature categories
+export interface LiveOpsFeatures {
+  // Player Management
   authentication: boolean;
-  chat: boolean;
+  playerProfiles: boolean;
+  playerSegmentation: boolean;
+
+  // Live Operations
+  liveEvents: boolean;
+  seasonalContent: boolean;
+  remoteConfig: boolean;
+  abTesting: boolean;
+  scheduledContent: boolean;
+
+  // Economy & Monetization
+  virtualCurrency: boolean;
+  inventorySystem: boolean;
+  iapValidation: boolean;
+  offers: boolean;
+
+  // Engagement & Retention
   pushNotifications: boolean;
-  inventory: boolean;
-  economy: boolean;
-  tournaments: boolean;
+  leaderboards: boolean;
+  achievements: boolean;
+  socialFeatures: boolean;
+  guildsClans: boolean;
+
+  // Analytics & Insights
+  analytics: boolean;
+  playerBehaviorTracking: boolean;
+  revenueAnalytics: boolean;
+  customDashboards: boolean;
+
+  // Multiplayer & Real-time
+  multiplayer: boolean;
+  matchmaking: boolean;
+  chat: boolean;
+
+  // Infrastructure
+  cloudSave: boolean;
+  serverlessLogic: boolean;
+  dedicatedServers: boolean;
+  globalScaling: boolean;
+
+  // Operations
+  adminDashboard: boolean;
+  playerSupport: boolean;
+  moderation: boolean;
 }
 
 export interface Backend {
@@ -30,12 +65,13 @@ export interface Backend {
   type: BackendType;
   pricingModel: PricingModel;
   pricingDetails?: string;
-  features: BackendFeatures;
-  useCases: UseCase[];
+  features: LiveOpsFeatures;
+  bestFor: string[];
+  gameTypes: GameType[];
   platforms: Platform[];
-  pros: string[];
-  cons: string[];
-  rating: number;
+  strengths: string[];
+  limitations: string[];
+  liveServiceFit: 'comprehensive' | 'partial' | 'minimal';
   foundedYear?: number;
   lastUpdated: string;
 }
@@ -44,5 +80,12 @@ export interface Category {
   slug: string;
   name: string;
   description: string;
-  useCases: UseCase[];
+  gameTypes: GameType[];
+}
+
+export interface EducationalContent {
+  slug: string;
+  title: string;
+  description: string;
+  order: number;
 }

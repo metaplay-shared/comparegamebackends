@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next';
-import { backends, categories } from '@/lib/backends';
+import { backends, categories, educationalContent } from '@/lib/backends';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://gamebackends.com';
+  const baseUrl = 'https://comparegamebackends.com';
 
   const staticPages = [
     {
@@ -13,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/backends`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/learn`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
@@ -32,12 +38,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const categoryPages = categories.map((category) => ({
-    url: `${baseUrl}/categories/${category.slug}`,
+  const learnPages = educationalContent.map((content) => ({
+    url: `${baseUrl}/learn/${content.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  const gameTypePages = categories.map((category) => ({
+    url: `${baseUrl}/games/${category.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));
 
-  return [...staticPages, ...backendPages, ...categoryPages];
+  return [...staticPages, ...backendPages, ...learnPages, ...gameTypePages];
 }

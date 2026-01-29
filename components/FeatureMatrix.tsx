@@ -1,4 +1,4 @@
-import { Backend, featureLabels } from '@/lib/backends';
+import { Backend, featureLabels, featureCategories, LiveOpsFeatures } from '@/lib/backends';
 
 interface FeatureMatrixProps {
   backend: Backend;
@@ -29,23 +29,37 @@ function XIcon() {
 }
 
 export function FeatureMatrix({ backend }: FeatureMatrixProps) {
-  const features = Object.entries(backend.features) as [keyof Backend['features'], boolean][];
-
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-      {features.map(([key, value]) => (
-        <div
-          key={key}
-          className={`flex items-center gap-2 p-3 rounded-lg ${
-            value
-              ? 'bg-green-50 dark:bg-green-900/20'
-              : 'bg-slate-50 dark:bg-slate-800/50'
-          }`}
-        >
-          {value ? <CheckIcon /> : <XIcon />}
-          <span className={`text-sm ${value ? 'text-green-700 dark:text-green-300' : 'text-slate-500 dark:text-slate-400'}`}>
-            {featureLabels[key]}
-          </span>
+    <div className="space-y-6">
+      {Object.entries(featureCategories).map(([category, features]) => (
+        <div key={category}>
+          <h3 className="font-medium text-slate-900 dark:text-slate-100 mb-3">{category}</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            {features.map((featureKey) => {
+              const hasFeature = backend.features[featureKey as keyof LiveOpsFeatures];
+              return (
+                <div
+                  key={featureKey}
+                  className={`flex items-center gap-2 p-2 rounded-lg ${
+                    hasFeature
+                      ? 'bg-green-50 dark:bg-green-900/20'
+                      : 'bg-slate-50 dark:bg-slate-800/50'
+                  }`}
+                >
+                  {hasFeature ? <CheckIcon /> : <XIcon />}
+                  <span
+                    className={`text-sm ${
+                      hasFeature
+                        ? 'text-green-700 dark:text-green-300'
+                        : 'text-slate-500 dark:text-slate-400'
+                    }`}
+                  >
+                    {featureLabels[featureKey as keyof LiveOpsFeatures]}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       ))}
     </div>

@@ -9,35 +9,37 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'GameBackends - Compare Game Backend Solutions',
-    template: '%s | GameBackends',
+    default: 'Compare Game Backends - Find the Best Backend for Your Game',
+    template: '%s | Compare Game Backends',
   },
   description:
-    'Compare game backend solutions for your project. Find the perfect backend infrastructure for your multiplayer game with detailed reviews and feature comparisons.',
+    'Compare game backend platforms side-by-side. Find the best backend for your live service game with detailed feature comparisons and guides.',
   keywords: [
+    'game backend comparison',
     'game backend',
-    'multiplayer game server',
-    'game server hosting',
+    'live service game',
+    'games as a service',
     'PlayFab',
     'Nakama',
-    'Photon',
+    'Metaplay',
+    'game server',
     'game development',
   ],
-  authors: [{ name: 'GameBackends' }],
+  authors: [{ name: 'Compare Game Backends' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://gamebackends.com',
-    siteName: 'GameBackends',
-    title: 'GameBackends - Compare Game Backend Solutions',
+    url: 'https://comparegamebackends.com',
+    siteName: 'Compare Game Backends',
+    title: 'Compare Game Backends - Find the Best Backend for Your Game',
     description:
-      'Compare game backend solutions for your project. Find the perfect backend infrastructure for your multiplayer game.',
+      'Compare game backend platforms side-by-side. Find the best backend for your live service game.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GameBackends - Compare Game Backend Solutions',
+    title: 'Compare Game Backends - Find the Best Backend for Your Game',
     description:
-      'Compare game backend solutions for your project. Find the perfect backend infrastructure for your multiplayer game.',
+      'Compare game backend platforms side-by-side. Find the best backend for your live service game.',
   },
   robots: {
     index: true,

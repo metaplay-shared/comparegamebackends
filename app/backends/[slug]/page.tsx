@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { backends, getBackendBySlug, typeLabels, pricingLabels } from '@/lib/backends';
+import { backends, getBackendBySlug, typeLabels, pricingLabels, liveServiceFitLabels } from '@/lib/backends';
 import { FeatureMatrix } from '@/components/FeatureMatrix';
 
 interface PageProps {
@@ -19,14 +19,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const backend = getBackendBySlug(slug);
 
   if (!backend) {
-    return { title: 'Backend Not Found' };
+    return { title: 'Platform Not Found' };
   }
 
   return {
-    title: `${backend.name} - Game Backend Review`,
+    title: `${backend.name} - Live Service Game Backend`,
     description: backend.description,
     openGraph: {
-      title: `${backend.name} - Game Backend Review`,
+      title: `${backend.name} - Live Service Game Backend`,
       description: backend.tagline,
     },
   };
@@ -49,14 +49,16 @@ export default async function BackendPage({ params }: PageProps) {
     native: 'Native',
   };
 
-  const useCaseLabels: Record<string, string> = {
-    mmo: 'MMO Games',
-    mobile: 'Mobile Games',
-    indie: 'Indie Games',
-    competitive: 'Competitive Games',
-    casual: 'Casual Games',
-    social: 'Social Games',
+  const gameTypeLabels: Record<string, string> = {
+    'f2p-mobile': 'F2P Mobile',
+    'live-service-pc': 'Live Service PC/Console',
+    'competitive': 'Competitive',
+    'casual-social': 'Casual & Social',
+    'mmo': 'MMO',
   };
+
+  const featureCount = Object.values(backend.features).filter(Boolean).length;
+  const totalFeatures = Object.keys(backend.features).length;
 
   return (
     <div className="container-page py-12 md:py-16">
@@ -71,7 +73,7 @@ export default async function BackendPage({ params }: PageProps) {
           <li>/</li>
           <li>
             <Link href="/backends" className="hover:text-primary-600">
-              Backends
+              Platforms
             </Link>
           </li>
           <li>/</li>
@@ -91,50 +93,33 @@ export default async function BackendPage({ params }: PageProps) {
               className={`badge ${
                 backend.type === 'open-source'
                   ? 'badge-green'
-                  : backend.type === 'commercial'
+                  : backend.type === 'full-platform'
                   ? 'badge-primary'
-                  : 'badge-purple'
+                  : 'badge-amber'
               }`}
             >
               {typeLabels[backend.type]}
             </span>
             <span
               className={`badge ${
-                backend.pricingModel === 'free'
+                backend.liveServiceFit === 'comprehensive'
                   ? 'badge-green'
-                  : backend.pricingModel === 'freemium'
-                  ? 'badge-primary'
-                  : backend.pricingModel === 'paid'
+                  : backend.liveServiceFit === 'partial'
                   ? 'badge-amber'
                   : 'badge-slate'
               }`}
             >
-              {pricingLabels[backend.pricingModel]}
+              {liveServiceFitLabels[backend.liveServiceFit]}
             </span>
           </div>
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-4">{backend.tagline}</p>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <svg
-                  key={star}
-                  className={`h-5 w-5 ${
-                    star <= backend.rating
-                      ? 'text-amber-400 fill-current'
-                      : 'text-slate-300 dark:text-slate-600'
-                  }`}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-              <span className="ml-2 font-medium">{backend.rating.toFixed(1)}</span>
-            </div>
+          <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+            <span>{featureCount} of {totalFeatures} live ops features</span>
             {backend.foundedYear && (
-              <span className="text-sm text-slate-500 dark:text-slate-400">
-                Since {backend.foundedYear}
-              </span>
+              <>
+                <span>•</span>
+                <span>Since {backend.foundedYear}</span>
+              </>
             )}
           </div>
         </div>
@@ -184,11 +169,11 @@ export default async function BackendPage({ params }: PageProps) {
 
           {/* Features */}
           <section className="card p-6">
-            <h2 className="text-xl font-semibold mb-4">Features</h2>
+            <h2 className="text-xl font-semibold mb-4">Live Service Features</h2>
             <FeatureMatrix backend={backend} />
           </section>
 
-          {/* Pros and Cons */}
+          {/* Strengths and Limitations */}
           <div className="grid md:grid-cols-2 gap-6">
             <section className="card p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
@@ -205,10 +190,10 @@ export default async function BackendPage({ params }: PageProps) {
                     d="M5 13l4 4L19 7"
                   />
                 </svg>
-                Pros
+                Strengths
               </h2>
               <ul className="space-y-2">
-                {backend.pros.map((pro, index) => (
+                {backend.strengths.map((item, index) => (
                   <li key={index} className="flex items-start gap-2 text-slate-600 dark:text-slate-400">
                     <svg
                       className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
@@ -221,7 +206,7 @@ export default async function BackendPage({ params }: PageProps) {
                         clipRule="evenodd"
                       />
                     </svg>
-                    {pro}
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -230,7 +215,7 @@ export default async function BackendPage({ params }: PageProps) {
             <section className="card p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <svg
-                  className="w-5 h-5 text-amber-500"
+                  className="w-5 h-5 text-slate-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -239,26 +224,26 @@ export default async function BackendPage({ params }: PageProps) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Cons
+                Limitations
               </h2>
               <ul className="space-y-2">
-                {backend.cons.map((con, index) => (
+                {backend.limitations.map((item, index) => (
                   <li key={index} className="flex items-start gap-2 text-slate-600 dark:text-slate-400">
                     <svg
-                      className="w-5 h-5 text-amber-500 shrink-0 mt-0.5"
+                      className="w-5 h-5 text-slate-400 shrink-0 mt-0.5"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
                       <path
                         fillRule="evenodd"
-                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
                         clipRule="evenodd"
                       />
                     </svg>
-                    {con}
+                    {item}
                   </li>
                 ))}
               </ul>
@@ -278,7 +263,7 @@ export default async function BackendPage({ params }: PageProps) {
                     ? 'badge-green'
                     : backend.pricingModel === 'freemium'
                     ? 'badge-primary'
-                    : backend.pricingModel === 'paid'
+                    : backend.pricingModel === 'usage-based'
                     ? 'badge-amber'
                     : 'badge-slate'
                 }`}
@@ -293,6 +278,21 @@ export default async function BackendPage({ params }: PageProps) {
             )}
           </section>
 
+          {/* Best For */}
+          <section className="card p-6">
+            <h2 className="text-xl font-semibold mb-4">Best For</h2>
+            <ul className="space-y-2">
+              {backend.bestFor.map((item, index) => (
+                <li key={index} className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-sm">
+                  <svg className="w-4 h-4 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
           {/* Platforms */}
           <section className="card p-6">
             <h2 className="text-xl font-semibold mb-4">Supported Platforms</h2>
@@ -305,17 +305,17 @@ export default async function BackendPage({ params }: PageProps) {
             </div>
           </section>
 
-          {/* Use Cases */}
+          {/* Game Types */}
           <section className="card p-6">
-            <h2 className="text-xl font-semibold mb-4">Best For</h2>
+            <h2 className="text-xl font-semibold mb-4">Game Types</h2>
             <div className="flex flex-wrap gap-2">
-              {backend.useCases.map((useCase) => (
+              {backend.gameTypes.map((gameType) => (
                 <Link
-                  key={useCase}
-                  href={`/categories/${useCase}`}
+                  key={gameType}
+                  href={`/games/${gameType}`}
                   className="badge-primary hover:opacity-80 transition-opacity"
                 >
-                  {useCaseLabels[useCase] || useCase}
+                  {gameTypeLabels[gameType] || gameType}
                 </Link>
               ))}
             </div>
@@ -331,7 +331,7 @@ export default async function BackendPage({ params }: PageProps) {
       {/* Back Link */}
       <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
         <Link href="/backends" className="btn-ghost text-primary-600 hover:text-primary-700">
-          ← Back to all backends
+          ← Back to all platforms
         </Link>
       </div>
     </div>
