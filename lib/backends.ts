@@ -120,10 +120,9 @@ export const backends: Backend[] = [
       'Multiplayer server hosting included',
     ],
     limitations: [
-      'English-only platform',
       'Advanced features require Azure subscription',
       'Original team departed post-acquisition (2022)',
-      'Some documentation gaps reported',
+      'Some documentation gaps reported post-acquisition',
     ],
     liveServiceFit: 'comprehensive',
     foundedYear: 2014,
@@ -378,7 +377,7 @@ export const backends: Backend[] = [
     ],
     limitations: [
       'Multiplay server hosting shutting down March 2026',
-      'Data portability "subject to Unity\'s sole discretion"',
+      'Limited data portability guarantees',
       'Stability concerns after 25% workforce layoffs (2024)',
       'Vendor lock-in to Unity ecosystem',
     ],
@@ -508,7 +507,7 @@ export const backends: Backend[] = [
     limitations: [
       'Steeper learning curve due to feature complexity',
       'Smaller community than PlayFab/Nakama',
-      'Rate limits: 20 requests/second per-user',
+      'API rate limits apply (check documentation)',
     ],
     liveServiceFit: 'comprehensive',
     foundedYear: 2014,

@@ -205,8 +205,11 @@ const articleContent: Record<string, { content: React.ReactNode }> = {
           <li><strong>D90+</strong> - Long-term retention indicating true engagement</li>
         </ul>
         <p>
-          Industry benchmarks vary by genre, but typically D1 retention of 35-40% and D7 of
-          15-20% are considered good for mobile games.
+          Industry benchmarks vary by genre and platform. According to{' '}
+          <a href="https://www.gameanalytics.com/reports/2025-mobile-gaming-benchmarks" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+            GameAnalytics
+          </a>, top-performing mobile games (top 25%) achieve D1 retention of 25-33% and D7 of 7-10%.
+          Elite games (top 5%) can reach D1 of 45%+ and D7 of 15%+.
         </p>
 
         <h2>Features That Drive Retention</h2>
