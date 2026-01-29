@@ -37,9 +37,9 @@ export default function HomePage() {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Why do you need a game backend?</h2>
           <p className="text-lg text-slate-600 dark:text-slate-400">
-            The most successful games today aren&apos;t just shipped and forgotten.
-            They&apos;re operated as <strong className="text-slate-900 dark:text-slate-100">live services</strong> -
-            continuously updated, optimized, and evolved based on player data and engagement.
+            The most successful games today are operated as <strong className="text-slate-900 dark:text-slate-100">live services</strong>,
+            continuously updated, optimised, and evolved based on player data and engagement.
+            You need a proper backend to handle this for you so you can focus on making the game, and not the tech.
           </p>
         </div>
 
