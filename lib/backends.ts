@@ -1,7 +1,24 @@
-import { Backend, BackendSource, Category, GameType, LiveOpsFeatures, FeatureEntry, isFeatureSupported, getFeatureSourceUrl, getFeatureDescription } from './types';
+import type { Backend, BackendSource, Category, GameType, LiveOpsFeatures, FeatureEntry } from './types';
 
 export type { Backend, BackendSource, Category, GameType, LiveOpsFeatures, FeatureEntry } from './types';
-export { isFeatureSupported, getFeatureSourceUrl, getFeatureDescription };
+
+// Helper to check if feature is supported
+export function isFeatureSupported(feature: FeatureEntry): boolean {
+  if (typeof feature === 'boolean') return feature;
+  return feature.supported;
+}
+
+// Helper to get feature source URL
+export function getFeatureSourceUrl(feature: FeatureEntry): string | undefined {
+  if (typeof feature === 'boolean') return undefined;
+  return feature.sourceUrl;
+}
+
+// Helper to get feature description
+export function getFeatureDescription(feature: FeatureEntry): string | undefined {
+  if (typeof feature === 'boolean') return undefined;
+  return feature.description;
+}
 
 export const backends: Backend[] = [
   {
