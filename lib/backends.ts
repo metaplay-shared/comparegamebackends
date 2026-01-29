@@ -12,8 +12,8 @@ export const backends: Backend[] = [
     website: 'https://metaplay.io',
     docsUrl: 'https://docs.metaplay.io',
     type: 'full-platform',
-    pricingModel: 'enterprise',
-    pricingDetails: 'Custom pricing based on game requirements and scale.',
+    pricingModel: 'freemium',
+    pricingDetails: 'Free for local development. Pro tier at €195/month for cloud deployment.',
     features: {
       authentication: true,
       playerProfiles: true,
@@ -58,7 +58,6 @@ export const backends: Backend[] = [
       'Designed for long-term game operation',
     ],
     limitations: [
-      'Enterprise-focused pricing model',
       'Unity-centric SDK ecosystem',
       'Not designed for real-time competitive multiplayer',
     ],
