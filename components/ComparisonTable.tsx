@@ -120,11 +120,6 @@ export function ComparisonTable() {
         </div>
       </div>
 
-      {/* Results count */}
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-        Showing {sortedBackends.length} of {backends.length} game backends
-      </p>
-
       {/* Scroll hint for All view */}
       {selectedCategory === 'All' && (
         <div className="mb-2 text-right">

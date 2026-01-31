@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { backends, getBackendBySlug, pricingLabels } from '@/lib/backends';
@@ -72,13 +73,17 @@ export default async function BackendPage({ params }: PageProps) {
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-start gap-6 mb-10">
-        <div className="w-20 h-20 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-3xl font-bold text-primary-600 shrink-0">
-          {backend.name.charAt(0)}
-        </div>
         <div className="flex-1">
-          <div className="flex flex-wrap items-center gap-3 mb-2">
-            <h1 className="text-3xl md:text-4xl font-bold">{backend.name}</h1>
+          <div className="h-12 mb-4">
+            <Image
+              src={backend.logo}
+              alt={`${backend.name} logo`}
+              width={180}
+              height={48}
+              className="object-contain object-left h-full w-auto max-w-[200px]"
+            />
           </div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{backend.name}</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-4">{backend.tagline}</p>
           <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
             {backend.foundedYear && (

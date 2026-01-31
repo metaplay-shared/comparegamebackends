@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BackendCard } from '@/components/BackendCard';
+import { CondensedComparisonTable } from '@/components/CondensedComparisonTable';
 import { backends, educationalContent } from '@/lib/backends';
 
 export default function HomePage() {
@@ -193,25 +194,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Compare Platforms CTA */}
-      <section className="bg-primary-600 dark:bg-primary-700">
-        <div className="container-page py-16 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            Ready to compare your options?
-          </h2>
-          <p className="text-primary-100 mb-8 max-w-2xl mx-auto">
-            We&apos;ve analyzed the leading game backend platforms so you can make an informed decision.
-            See how game backends compare on features, pricing, and live service capabilities.
-          </p>
-          <Link
-            href="/backends"
-            className="inline-flex items-center justify-center rounded-lg font-medium bg-white text-primary-600 hover:bg-primary-50 px-6 py-3 transition-colors"
-          >
-            Compare All Platforms
-          </Link>
-        </div>
-      </section>
-
       {/* Game Backends */}
       <section className="container-page py-16 md:py-20">
         <div className="flex items-center justify-between mb-8">
@@ -235,6 +217,27 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Quick Comparison Table */}
+      <section className="bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+        <div className="container-page py-16 md:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Quick Comparison</h2>
+            <p className="text-slate-600 dark:text-slate-400">
+              See how game backends stack up across key feature categories.
+              Hover over &quot;Many&quot; or &quot;Some&quot; to see which features are supported.
+            </p>
+          </div>
+          <div className="card p-6">
+            <CondensedComparisonTable />
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/backends" className="btn-primary">
+              View Full Comparison
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Learn More */}
       <section className="container-page py-16 md:py-20">
         <div className="text-center mb-12">
@@ -243,7 +246,7 @@ export default function HomePage() {
             Dive deeper into live service game operations
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {educationalContent.slice(0, 3).map((content) => (
             <Link
               key={content.slug}

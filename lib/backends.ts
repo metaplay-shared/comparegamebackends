@@ -106,7 +106,7 @@ export const backends: Backend[] = [
     name: 'PlayFab',
     tagline: 'Microsoft\'s backend platform for live games',
     description: 'PlayFab is a comprehensive backend platform for building and operating live games, now part of Microsoft\'s Azure Gaming ecosystem. It offers a wide range of services from player authentication to live ops and analytics, with deep integration into Azure cloud services.',
-    logo: '/images/playfab.svg',
+    logo: '/images/playfab.png',
     website: 'https://playfab.com',
     docsUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/',
     type: 'proprietary',
@@ -435,7 +435,7 @@ export const backends: Backend[] = [
     name: 'Colyseus',
     tagline: 'Multiplayer game server framework for Node.js',
     description: 'Colyseus is an authoritative multiplayer game server framework for Node.js. It provides state synchronization, matchmaking, and room-based multiplayer with a focus on simplicity and developer experience for building real-time games.',
-    logo: '/images/colyseus.svg',
+    logo: '/images/colyseus.png',
     website: 'https://colyseus.io',
     docsUrl: 'https://docs.colyseus.io',
     githubUrl: 'https://github.com/colyseus/colyseus',
@@ -763,15 +763,14 @@ export function getAllSlugs(): string[] {
 
 export const featureCategories = {
   'Player Management': ['authentication', 'playerProfiles', 'playerSegmentation'],
-  'Live Operations': ['liveEvents', 'seasonalContent', 'remoteConfig', 'abTesting', 'scheduledContent'],
+  'LiveOps': ['liveEvents', 'seasonalContent', 'remoteConfig', 'abTesting', 'scheduledContent'],
   'Economy & Monetization': ['virtualCurrency', 'inventorySystem', 'iapValidation', 'offers'],
   'Engagement & Retention': ['pushNotifications', 'leaderboards', 'achievements', 'socialFeatures', 'guildsClans', 'inGameMessaging'],
   'Analytics & Insights': ['analytics', 'playerBehaviorTracking', 'revenueAnalytics', 'customDashboards'],
-  'Multiplayer & Real-time': ['multiplayer', 'matchmaking', 'chat', 'serverAuthoritative', 'cheatProtection'],
+  'Multiplayer': ['multiplayer', 'matchmaking', 'chat', 'serverAuthoritative', 'cheatProtection'],
   'Infrastructure': ['cloudSave', 'serverlessLogic', 'dedicatedServers', 'globalScaling', 'managedServices', 'selfHosting'],
-  'Operations': ['adminDashboard', 'playerSupport', 'moderation', 'loadTesting'],
+  'Operations': ['adminDashboard', 'playerSupport', 'moderation', 'loadTesting', 'gdprCompliance', 'aiFeatures'],
   'Platform & SDK': ['sourceCodeAccess', 'multiplatformSDK', 'customizable', 'extensible', 'sharedClientServerLogic'],
-  'Compliance & AI': ['gdprCompliance', 'aiFeatures'],
 };
 
 export const featureLabels: Record<keyof LiveOpsFeatures, string> = {
