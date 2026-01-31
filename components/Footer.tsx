@@ -2,28 +2,16 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+    <footer className="border-t border-neutral-200 dark:border-neutral-800">
       <div className="container-page py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 font-semibold text-lg mb-4">
-              <svg
-                className="h-8 w-8 text-primary-600"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                <line x1="8" y1="21" x2="16" y2="21" />
-                <line x1="12" y1="17" x2="12" y2="21" />
-              </svg>
+            <Link href="/" className="flex items-center gap-2 font-display font-medium mb-4">
+              <span className="text-primary-500">⬡</span>
               <span>Compare Game Backends</span>
             </Link>
-            <p className="text-slate-600 dark:text-slate-400 text-sm max-w-sm">
+            <p className="text-neutral-500 dark:text-neutral-400 text-sm max-w-sm">
               Find the best game backend for your project. Compare platforms,
               understand what you need, and make an informed decision.
             </p>
@@ -31,25 +19,25 @@ export function Footer() {
 
           {/* Learn */}
           <div>
-            <h3 className="font-semibold text-sm mb-4">Learn</h3>
+            <h3 className="text-sm mb-4 text-neutral-900 dark:text-neutral-100">Learn</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/learn/what-is-live-service" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/learn/what-is-live-service" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   What is Live Service?
                 </Link>
               </li>
               <li>
-                <Link href="/learn/pillars-of-live-ops" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/learn/pillars-of-live-ops" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   Pillars of Live Ops
                 </Link>
               </li>
               <li>
-                <Link href="/learn/retention-engagement" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/learn/retention-engagement" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   Retention & Engagement
                 </Link>
               </li>
               <li>
-                <Link href="/learn/monetization-economy" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/learn/monetization-economy" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   Monetization & Economy
                 </Link>
               </li>
@@ -58,25 +46,25 @@ export function Footer() {
 
           {/* Platforms */}
           <div>
-            <h3 className="font-semibold text-sm mb-4">Platforms</h3>
+            <h3 className="text-sm mb-4 text-neutral-900 dark:text-neutral-100">Platforms</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/backends" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/backends" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   Compare All
                 </Link>
               </li>
               <li>
-                <Link href="/games/f2p-mobile" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/games/f2p-mobile" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   For F2P Mobile
                 </Link>
               </li>
               <li>
-                <Link href="/games/live-service-pc" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/games/live-service-pc" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   For PC/Console
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50">
+                <Link href="/about" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   About
                 </Link>
               </li>
@@ -84,8 +72,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 mt-8 pt-8 text-center text-sm text-slate-600 dark:text-slate-400">
-          <p>&copy; {new Date().getFullYear()} Compare Game Backends. All rights reserved.</p>
+        <div className="border-t border-neutral-200 dark:border-neutral-800 mt-8 pt-8 text-center text-sm text-neutral-500 dark:text-neutral-500">
+          <p>&copy; {new Date().getFullYear()} Compare Game Backends</p>
         </div>
       </div>
     </footer>

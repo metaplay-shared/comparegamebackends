@@ -18,7 +18,7 @@ type SortDirection = 'asc' | 'desc';
 
 function CheckIcon() {
   return (
-    <svg className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+    <svg className="h-5 w-5 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
       <path
         fillRule="evenodd"
         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -30,7 +30,7 @@ function CheckIcon() {
 
 function XIcon() {
   return (
-    <svg className="h-5 w-5 text-slate-300 dark:text-slate-600" viewBox="0 0 20 20" fill="currentColor">
+    <svg className="h-5 w-5 text-neutral-300 dark:text-neutral-700" viewBox="0 0 20 20" fill="currentColor">
       <path
         fillRule="evenodd"
         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -94,13 +94,13 @@ export function ComparisonTable() {
   return (
     <div>
       {/* Hint about hovering for tooltips */}
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-        Hover over a <span className="text-green-500">✓</span> to see details and source documentation
+      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+        Hover over a <span className="text-primary-500">✓</span> to see details and source documentation
       </p>
 
       {/* Feature Category Tabs */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+        <label className="block text-sm text-neutral-600 dark:text-neutral-400 mb-2">
           Feature Category
         </label>
         <div className="flex flex-wrap gap-2">
@@ -108,10 +108,10 @@ export function ComparisonTable() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
                 selectedCategory === cat
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  ? 'bg-primary-500 text-neutral-900'
+                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-700'
               }`}
             >
               {cat}
@@ -123,9 +123,7 @@ export function ComparisonTable() {
       {/* Scroll hint for All view */}
       {selectedCategory === 'All' && (
         <div className="mb-2 text-right">
-          <span
-            className="inline-block text-xs font-medium bg-gradient-to-r from-slate-400 via-primary-500 to-slate-400 dark:from-slate-500 dark:via-primary-400 dark:to-slate-500 bg-clip-text text-transparent bg-[length:200%_100%] animate-text-shimmer"
-          >
+          <span className="inline-block text-xs text-neutral-400">
             Scroll →
           </span>
         </div>
@@ -135,18 +133,18 @@ export function ComparisonTable() {
       <div className="overflow-x-auto scrollbar-thin">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-slate-200 dark:border-slate-700">
-              <th className="text-left py-3 px-4 font-semibold sticky left-0 z-10 bg-white dark:bg-slate-900">
+            <tr className="border-b border-neutral-200 dark:border-neutral-800">
+              <th className="text-left py-3 px-4 font-medium sticky left-0 z-10 bg-white dark:bg-neutral-900">
                 <button
                   onClick={() => handleSort('name')}
-                  className="hover:text-primary-600 inline-flex items-center"
+                  className="hover:text-primary-500 inline-flex items-center"
                 >
                   Game Backend
                   <SortIcon field="name" />
                 </button>
               </th>
               {selectedFeatures.map((feature) => (
-                <th key={feature} className="text-center py-3 px-2 font-semibold whitespace-nowrap">
+                <th key={feature} className="text-center py-3 px-2 font-medium whitespace-nowrap">
                   <span className="text-xs">{featureLabels[feature as keyof LiveOpsFeatures]}</span>
                 </th>
               ))}
@@ -156,12 +154,12 @@ export function ComparisonTable() {
             {sortedBackends.map((backend) => (
               <tr
                 key={backend.slug}
-                className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
               >
-                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-slate-900">
+                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900">
                   <Link
                     href={`/backends/${backend.slug}`}
-                    className="font-medium text-primary-600 hover:text-primary-700 hover:underline"
+                    className="font-display text-neutral-900 dark:text-neutral-100 hover:text-primary-500 transition-colors"
                   >
                     {backend.name}
                   </Link>
@@ -189,7 +187,7 @@ export function ComparisonTable() {
       </div>
 
       {sortedBackends.length === 0 && (
-        <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+        <div className="text-center py-12 text-neutral-500 dark:text-neutral-400">
           No game backends match your current filters. Try adjusting your criteria.
         </div>
       )}

@@ -9,7 +9,7 @@ interface BackendCardProps {
 export function BackendCard({ backend }: BackendCardProps) {
   return (
     <Link href={`/backends/${backend.slug}`} className="block group">
-      <div className="card p-6 h-full transition-all hover:shadow-md hover:border-primary-300 dark:hover:border-primary-700">
+      <div className="card p-6 h-full transition-colors hover:border-primary-500/50">
         <div className="h-10 mb-4">
           <Image
             src={backend.logo}
@@ -19,10 +19,10 @@ export function BackendCard({ backend }: BackendCardProps) {
             className="object-contain object-left h-full w-auto max-w-[140px]"
           />
         </div>
-        <h3 className="font-semibold text-lg mb-2 group-hover:text-primary-600 transition-colors">
+        <h3 className="font-display font-medium mb-2 group-hover:text-primary-500 transition-colors">
           {backend.name}
         </h3>
-        <p className="text-slate-600 dark:text-slate-400 text-sm">
+        <p className="text-neutral-500 dark:text-neutral-400 text-sm">
           {backend.tagline}
         </p>
       </div>

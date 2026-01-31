@@ -32,42 +32,32 @@ export function Navigation() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-925/90 backdrop-blur-md">
       <nav className="container-page">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
-            <svg
-              className="h-8 w-8 text-primary-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-              <line x1="8" y1="21" x2="16" y2="21" />
-              <line x1="12" y1="17" x2="12" y2="21" />
-            </svg>
-            <span className="hidden sm:inline">Compare Game Backends</span>
-          </Link>
+        <div className="flex h-14 items-center justify-between">
+          {/* Logo + Desktop Navigation */}
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-2 font-display font-medium">
+              <span className="text-primary-500">⬡</span>
+              <span className="hidden sm:inline">Compare Game Backends</span>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(link.href)
-                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`px-3 py-1.5 rounded-md text-sm font-display transition-colors ${
+                    isActive(link.href)
+                      ? 'text-primary-500'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-500'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Theme Toggle & Mobile Menu */}
@@ -119,17 +109,17 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-slate-200 dark:border-slate-800">
+          <div className="md:hidden py-4 border-t border-neutral-200 dark:border-neutral-800">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-md text-sm font-display transition-colors ${
                     isActive(link.href)
-                      ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50'
+                      ? 'text-primary-500'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-500'
                   }`}
                 >
                   {link.label}

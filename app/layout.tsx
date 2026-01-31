@@ -1,11 +1,8 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +51,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
+      <head>
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+      </head>
+      <body className="min-h-screen flex flex-col font-sans">
         <ThemeProvider>
           <Navigation />
           <main className="flex-1">{children}</main>
