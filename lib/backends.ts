@@ -94,6 +94,7 @@ export const backends: Backend[] = [
       'Async matchmaker only (no synchronous real-time matchmaker)',
     ],
     foundedYear: 2019,
+    architectureLabel: 'Deterministic shared-logic platform',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://metaplay.io/pricing' },
@@ -175,6 +176,7 @@ export const backends: Backend[] = [
       'Legacy CloudScript (JavaScript) has execution time limits; Azure Functions requires migration',
     ],
     foundedYear: 2014,
+    architectureLabel: 'Managed microservices platform',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://playfab.com/pricing/' },
@@ -257,6 +259,7 @@ export const backends: Backend[] = [
       'Full stack requires multiple products',
     ],
     foundedYear: 2014,
+    architectureLabel: 'Composable open-source stack',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Heroic Labs', url: 'https://heroiclabs.com/' },
@@ -341,6 +344,7 @@ export const backends: Backend[] = [
       'No player management or economy features included',
     ],
     foundedYear: 2016,
+    architectureLabel: 'Infrastructure orchestration service',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://aws.amazon.com/gamelift/servers/pricing/' },
@@ -423,6 +427,7 @@ export const backends: Backend[] = [
       'Full SDK support limited to Unity engine; Unreal SDK covers only Auth, Matchmaker, Multiplay, and Vivox',
     ],
     foundedYear: 2021,
+    architectureLabel: 'Managed serverless service suite',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://unity.com/products/gaming-services/pricing' },
@@ -506,6 +511,7 @@ export const backends: Backend[] = [
       'Smaller community (~3.1K Discord, ~6.7K GitHub stars)',
     ],
     foundedYear: 2015,
+    architectureLabel: 'Authoritative multiplayer framework',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://colyseus.io/pricing' },
@@ -587,6 +593,7 @@ export const backends: Backend[] = [
       'Cloud Code runs on Mozilla Rhino JavaScript engine (ES5-era)',
     ],
     foundedYear: 2011,
+    architectureLabel: 'Managed BaaS with script authority',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://getbraincloud.com/pricing/' },
@@ -668,6 +675,7 @@ export const backends: Backend[] = [
       'Closed-source platform; no source code access',
     ],
     foundedYear: 2016,
+    architectureLabel: 'Modular managed microservices',
     lastUpdated: '2026-02',
     sources: [
       { label: 'Pricing', url: 'https://accelbyte.io/pricing' },

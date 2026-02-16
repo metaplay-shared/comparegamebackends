@@ -110,6 +110,7 @@ export interface Backend {
   strengths: string[];
   limitations: string[];
   foundedYear?: number;
+  architectureLabel: string;
   lastUpdated: string;
   sources?: BackendSource[];
 }

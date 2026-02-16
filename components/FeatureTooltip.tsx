@@ -19,6 +19,20 @@ export function FeatureTooltip({ description, sourceUrl, children }: FeatureTool
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState<TooltipPosition | null>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const showTooltip = () => {
+    clearTimeout(hideTimeoutRef.current);
+    setIsVisible(true);
+  };
+
+  const hideTooltip = () => {
+    hideTimeoutRef.current = setTimeout(() => setIsVisible(false), 150);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(hideTimeoutRef.current);
+  }, []);
 
   useEffect(() => {
     if (isVisible && triggerRef.current) {
@@ -71,14 +85,16 @@ export function FeatureTooltip({ description, sourceUrl, children }: FeatureTool
     <div
       ref={triggerRef}
       className="relative inline-flex justify-center"
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
+      onMouseEnter={showTooltip}
+      onMouseLeave={hideTooltip}
     >
       {children}
 
       {isVisible && position && (
         <div
           className="fixed z-[9999] w-64 p-3 text-left bg-slate-900 dark:bg-slate-800 text-white text-xs rounded-lg shadow-lg border border-slate-700"
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
           style={{
             top: position.showBelow ? position.top : 'auto',
             bottom: position.showBelow ? 'auto' : `${window.innerHeight - position.top}px`,

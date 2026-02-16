@@ -42,7 +42,7 @@ function getCategoryClassification(
   const totalCount = categoryFeatures.length;
 
   let classification: Classification;
-  if (supportedCount === totalCount) {
+  if (supportedCount >= totalCount - 1) {
     classification = 'many';
   } else if (supportedCount > 0) {
     classification = 'some';
@@ -144,9 +144,6 @@ function ClassificationCell({ result }: { result: CategoryResult }) {
               }`}
               style={{ left: position.arrowLeft - 8 }}
             />
-            <div className="font-medium mb-1.5 text-neutral-200">
-              {result.supportedFeatures.length} of {result.totalFeatures} features:
-            </div>
             <ul className="space-y-0.5">
               {result.supportedFeatures.map((feature) => (
                 <li key={feature} className="flex items-center gap-1.5 text-neutral-200">
@@ -180,6 +177,9 @@ export function CondensedComparisonTable() {
             <th className="text-left py-3 px-4 font-medium sticky left-0 z-10 bg-white dark:bg-neutral-900">
               Game Backend
             </th>
+            <th className="text-center py-3 px-2 font-medium whitespace-nowrap">
+              <span className="text-xs">Architecture</span>
+            </th>
             {categories.map((category) => (
               <th key={category} className="text-center py-3 px-2 font-medium whitespace-nowrap">
                 <span className="text-xs">{category}</span>
@@ -200,6 +200,11 @@ export function CondensedComparisonTable() {
                 >
                   {backend.name}
                 </Link>
+              </td>
+              <td className="py-3 px-2 text-center">
+                <span className="inline-block text-[10px] leading-tight font-medium px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
+                  {backend.architectureLabel}
+                </span>
               </td>
               {categories.map((category) => {
                 const categoryFeatures = featureCategories[category as keyof typeof featureCategories];

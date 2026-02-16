@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BackendCard } from '@/components/BackendCard';
-import { CondensedComparisonTable } from '@/components/CondensedComparisonTable';
+import { ArchitectureComparisonTable } from '@/components/ArchitectureComparisonTable';
 import { backends, educationalContent } from '@/lib/backends';
 
 export default function HomePage() {
@@ -194,6 +194,68 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* How to Evaluate a Game Backend */}
+      <section className="border-y border-neutral-200 dark:border-neutral-800">
+        <div className="container-page py-16 md:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">How to evaluate a game backend</h2>
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+              Feature checklists only tell part of the story. Two backends can both tick &quot;server authoritative&quot;
+              while implementing it in fundamentally different ways. These nine architectural dimensions
+              reveal the deeper differences.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <EvalCriterion
+              number={1}
+              title="Server Authority"
+              description="How is cheat-proof server authority achieved? Some platforms enforce it structurally through deterministic re-execution with checksums. Others require the developer to write separate validation scripts."
+            />
+            <EvalCriterion
+              number={2}
+              title="Shared Client-Server Logic"
+              description="Can the same game logic code run on both client and server? Shared execution eliminates an entire category of sync bugs. Separate codebases mean maintaining two implementations of every rule."
+            />
+            <EvalCriterion
+              number={3}
+              title="Platform Integration"
+              description="Is this a single integrated platform or a collection of separate services? Tightly integrated platforms share data models and transactional boundaries. Loosely coupled services require manual wiring."
+            />
+            <EvalCriterion
+              number={4}
+              title="Source Code Access"
+              description="Can you inspect and modify the server, dashboard, and SDK? Full source access means you can debug production issues, extend core behavior, and avoid vendor lock-in."
+            />
+            <EvalCriterion
+              number={5}
+              title="Game Config Pipeline"
+              description="How do you manage game data like item stats, progression curves, and economy balancing? Some platforms offer typed pipelines from spreadsheets to binary archives. Others provide key-value strings."
+            />
+            <EvalCriterion
+              number={6}
+              title="LiveOps Dashboard"
+              description="Can the operations dashboard be extended with game-specific pages and actions? Source-available dashboards can be customized. Fixed SaaS dashboards require building separate admin tools."
+            />
+            <EvalCriterion
+              number={7}
+              title="Deployment Options"
+              description="Does the platform offer managed hosting to get started quickly, with the option to self-host later? The best platforms provide both — managed convenience and full infrastructure control when you need it."
+            />
+            <EvalCriterion
+              number={8}
+              title="Scalability"
+              description="How does the platform scale from prototype to millions of players? Stateful architectures can be more efficient per-server. Stateless microservices scale horizontally but add operational complexity."
+            />
+            <EvalCriterion
+              number={9}
+              title="Developer Experience"
+              description="How quickly can you start building? Some platforms run locally with a single command. Others require cloud-only development and complex setup before writing any game logic."
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Game Backends */}
       <section className="container-page py-16 md:py-20">
         <div className="flex items-center justify-between mb-8">
@@ -217,22 +279,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Quick Comparison Table */}
+      {/* Architecture Comparison Table */}
       <section className="border-y border-neutral-200 dark:border-neutral-800">
         <div className="container-page py-16 md:py-20">
           <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Quick Comparison</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Architecture Comparison</h2>
             <p className="text-neutral-600 dark:text-neutral-400">
-              See how game backends stack up across key feature categories.
-              Hover over &quot;Many&quot; or &quot;Some&quot; to see which features are supported.
+              How each platform approaches the architectural dimensions that matter most.
+              Scroll horizontally to see all platforms.
             </p>
           </div>
           <div className="card p-6">
-            <CondensedComparisonTable />
+            <ArchitectureComparisonTable />
           </div>
           <div className="text-center mt-8">
             <Link href="/backends" className="btn-primary">
-              View Full Comparison
+              View Full Feature Comparison
             </Link>
           </div>
         </div>
@@ -269,6 +331,22 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+    </div>
+  );
+}
+
+function EvalCriterion({ number, title, description }: { number: number; title: string; description: string }) {
+  return (
+    <div className="card p-6">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary-500/10 text-primary-500 text-xs font-bold flex items-center justify-center">
+          {number}
+        </span>
+        <h3 className="font-medium">{title}</h3>
+      </div>
+      <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+        {description}
+      </p>
     </div>
   );
 }

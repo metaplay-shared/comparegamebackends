@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { CondensedComparisonTable } from '@/components/CondensedComparisonTable';
 import { ComparisonTable } from '@/components/ComparisonTable';
 
 export const metadata: Metadata = {
@@ -20,7 +21,19 @@ export default function BackendsPage() {
         </p>
       </div>
 
-      {/* Comparison Table */}
+      {/* Quick Comparison */}
+      <div className="mb-10">
+        <h2 className="text-xl font-semibold mb-4">Quick Comparison</h2>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+          Hover over &quot;Many&quot; or &quot;Some&quot; to see which features are supported.
+        </p>
+        <div className="card p-6">
+          <CondensedComparisonTable />
+        </div>
+      </div>
+
+      {/* Full Comparison Table */}
+      <h2 className="text-xl font-semibold mb-4">Full Feature Comparison</h2>
       <div className="card p-6">
         <ComparisonTable />
       </div>
