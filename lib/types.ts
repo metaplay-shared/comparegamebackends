@@ -1,4 +1,4 @@
-export type BackendType = 'proprietary' | 'open-source';
+export type BackendType = 'proprietary' | 'open-source' | 'source-available';
 export type PricingModel = 'free' | 'freemium' | 'usage-based' | 'enterprise';
 export type GameType = 'f2p-mobile' | 'live-service-pc' | 'competitive' | 'casual-social' | 'mmo';
 export type Platform = 'unity' | 'unreal' | 'godot' | 'custom' | 'html5' | 'native';
