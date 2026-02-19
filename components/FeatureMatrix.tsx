@@ -9,7 +9,7 @@ interface FeatureMatrixProps {
 
 function CheckIcon() {
   return (
-    <svg className="h-5 w-5 text-green-500 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+    <svg className="h-5 w-5 text-green-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
       <path
         fillRule="evenodd"
         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -21,7 +21,7 @@ function CheckIcon() {
 
 function XIcon() {
   return (
-    <svg className="h-5 w-5 text-slate-300 dark:text-slate-600 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+    <svg className="h-5 w-5 text-slate-300 dark:text-slate-600 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
       <path
         fillRule="evenodd"
         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -46,7 +46,7 @@ export function FeatureMatrix({ backend }: FeatureMatrixProps) {
       {Object.entries(featureCategories).map(([category, features]) => (
         <div key={category}>
           <h3 className="font-medium text-slate-900 dark:text-slate-100 mb-3">{category}</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {features.map((featureKey) => {
               const feature = backend.features[featureKey as keyof LiveOpsFeatures];
               const hasFeature = isFeatureSupported(feature);
@@ -76,7 +76,7 @@ export function FeatureMatrix({ backend }: FeatureMatrixProps) {
                   sourceUrl={sourceUrl}
                 >
                   <div
-                    className={`flex items-center gap-2 p-2 rounded-lg transition-colors ${
+                    className={`flex items-start gap-2 p-2 rounded-lg transition-colors ${
                       hasFeature
                         ? 'bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30'
                         : 'bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800'

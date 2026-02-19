@@ -44,23 +44,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Platforms */}
+          {/* Compare */}
           <div>
-            <h3 className="text-sm mb-4 text-neutral-900 dark:text-neutral-100">Platforms</h3>
+            <h3 className="text-sm mb-4 text-neutral-900 dark:text-neutral-100">Compare</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/backends" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
-                  Compare All
-                </Link>
-              </li>
-              <li>
-                <Link href="/games/f2p-mobile" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
-                  For F2P Mobile
-                </Link>
-              </li>
-              <li>
-                <Link href="/games/live-service-pc" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
-                  For PC/Console
+                  Compare Backends
                 </Link>
               </li>
               <li>

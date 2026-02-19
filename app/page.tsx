@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { BackendCard } from '@/components/BackendCard';
-import { ArchitectureComparisonTable } from '@/components/ArchitectureComparisonTable';
 import { backends, educationalContent } from '@/lib/backends';
 
 export default function HomePage() {
@@ -269,34 +268,13 @@ export default function HomePage() {
             href="/backends"
             className="hidden md:inline-flex text-sm text-neutral-500 hover:text-primary-500 transition-colors"
           >
-            View all →
+            Compare all →
           </Link>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {backends.map((backend) => (
             <BackendCard key={backend.slug} backend={backend} />
           ))}
-        </div>
-      </section>
-
-      {/* Architecture Comparison Table */}
-      <section className="border-y border-neutral-200 dark:border-neutral-800">
-        <div className="container-page py-16 md:py-20">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Architecture Comparison</h2>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              How each platform approaches the architectural dimensions that matter most.
-              Scroll horizontally to see all platforms.
-            </p>
-          </div>
-          <div className="card p-6">
-            <ArchitectureComparisonTable />
-          </div>
-          <div className="text-center mt-8">
-            <Link href="/backends" className="btn-primary">
-              View Full Feature Comparison
-            </Link>
-          </div>
         </div>
       </section>
 

@@ -6,10 +6,8 @@ import { useState } from 'react';
 import { useTheme } from './ThemeProvider';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
   { href: '/learn', label: 'Learn' },
-  { href: '/backends', label: 'Platforms' },
-  { href: '/games/f2p-mobile', label: 'By Game Type' },
+  { href: '/backends', label: 'Compare' },
   { href: '/about', label: 'About' },
 ];
 

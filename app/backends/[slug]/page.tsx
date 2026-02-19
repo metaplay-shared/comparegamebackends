@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { backends, getBackendBySlug, pricingLabels } from '@/lib/backends';
 import { FeatureMatrix } from '@/components/FeatureMatrix';
+import { architectureData, dimensionLabels } from '@/lib/architecture';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -50,11 +51,13 @@ export default async function BackendPage({ params }: PageProps) {
     native: 'Native',
   };
 
+  const archData = architectureData[backend.slug];
+
   return (
     <div className="container-page py-12 md:py-16">
       {/* Breadcrumb */}
       <nav className="mb-8">
-        <ol className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+        <ol className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
           <li>
             <Link href="/" className="hover:text-primary-600">
               Home
@@ -63,11 +66,11 @@ export default async function BackendPage({ params }: PageProps) {
           <li>/</li>
           <li>
             <Link href="/backends" className="hover:text-primary-600">
-              Platforms
+              Compare
             </Link>
           </li>
           <li>/</li>
-          <li className="text-slate-900 dark:text-slate-50">{backend.name}</li>
+          <li className="text-neutral-900 dark:text-neutral-50">{backend.name}</li>
         </ol>
       </nav>
 
@@ -84,8 +87,8 @@ export default async function BackendPage({ params }: PageProps) {
             />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">{backend.name}</h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 mb-4">{backend.tagline}</p>
-          <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">{backend.tagline}</p>
+          <div className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
             {backend.foundedYear && (
               <span>Founded {backend.foundedYear}</span>
             )}
@@ -132,10 +135,55 @@ export default async function BackendPage({ params }: PageProps) {
           {/* Description */}
           <section className="card p-6">
             <h2 className="text-xl font-semibold mb-4">Overview</h2>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
               {backend.description}
             </p>
           </section>
+
+          {/* Architecture */}
+          {archData && (
+            <section className="card p-6">
+              <h2 className="text-xl font-semibold mb-2">Architecture</h2>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+                How {backend.name} approaches the key architectural dimensions for live service games.
+              </p>
+              <div className="space-y-4">
+                {dimensionLabels.map((dim) => {
+                  const cell = archData[dim.key];
+                  if (!cell) return null;
+                  return (
+                    <div key={dim.key} className="border-b border-neutral-100 dark:border-neutral-800 pb-4 last:border-0 last:pb-0">
+                      <div className="flex items-start gap-3">
+                        <span className="text-xs font-medium text-primary-500 bg-primary-500/10 px-2 py-1 rounded whitespace-nowrap mt-0.5">
+                          {dim.label}
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                            {cell.text}
+                          </p>
+                          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+                            {cell.tooltip}
+                          </p>
+                          <a
+                            href={cell.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 mt-1.5 text-xs text-primary-500 hover:text-primary-600 hover:underline"
+                          >
+                            Documentation
+                            <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
+                              <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
+                            </svg>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
 
           {/* Features */}
           <section className="card p-6">
@@ -146,6 +194,36 @@ export default async function BackendPage({ params }: PageProps) {
 
         {/* Right Column - Sidebar */}
         <div className="space-y-6">
+          {/* Strengths */}
+          <section className="card p-6">
+            <h2 className="text-xl font-semibold mb-4">Strengths</h2>
+            <ul className="space-y-2">
+              {backend.strengths.map((strength, index) => (
+                <li key={index} className="flex items-start gap-2 text-sm">
+                  <svg className="w-4 h-4 text-green-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-neutral-600 dark:text-neutral-400">{strength}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Limitations */}
+          <section className="card p-6">
+            <h2 className="text-xl font-semibold mb-4">Limitations</h2>
+            <ul className="space-y-2">
+              {backend.limitations.map((limitation, index) => (
+                <li key={index} className="flex items-start gap-2 text-sm">
+                  <svg className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-neutral-600 dark:text-neutral-400">{limitation}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           {/* Pricing */}
           <section className="card p-6">
             <h2 className="text-xl font-semibold mb-4">Pricing</h2>
@@ -165,7 +243,7 @@ export default async function BackendPage({ params }: PageProps) {
               </span>
             </div>
             {backend.pricingDetails && (
-              <p className="text-sm text-slate-600 dark:text-slate-400">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
                 {backend.pricingDetails}
               </p>
             )}
@@ -205,16 +283,16 @@ export default async function BackendPage({ params }: PageProps) {
           )}
 
           {/* Last Updated */}
-          <div className="text-sm text-slate-500 dark:text-slate-400 text-center">
+          <div className="text-sm text-neutral-500 dark:text-neutral-400 text-center">
             Last updated: {backend.lastUpdated}
           </div>
         </div>
       </div>
 
       {/* Back Link */}
-      <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+      <div className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
         <Link href="/backends" className="btn-ghost text-primary-600 hover:text-primary-700">
-          ← Back to all platforms
+          ← Back to comparison
         </Link>
       </div>
     </div>
