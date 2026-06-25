@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArchitectureComparisonTable } from '@/components/ArchitectureComparisonTable';
+import { ComparisonTable } from '@/components/ComparisonTable';
 
 export const metadata: Metadata = {
   title: 'Compare Game Backends',
@@ -29,6 +30,17 @@ export default function ComparePage() {
         </p>
         <div className="card p-6">
           <ArchitectureComparisonTable />
+        </div>
+      </div>
+
+      {/* Feature Comparison Table */}
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-2">Feature Comparison</h2>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
+          Side-by-side support across every live service feature, including AI. Filter by category, and hover any ✓ for details and source documentation.
+        </p>
+        <div className="card p-6">
+          <ComparisonTable />
         </div>
       </div>
 

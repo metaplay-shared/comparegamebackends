@@ -782,8 +782,9 @@ export const featureCategories = {
   'Analytics & Insights': ['analytics', 'playerBehaviorTracking', 'revenueAnalytics', 'customDashboards'],
   'Multiplayer': ['multiplayer', 'matchmaking', 'chat', 'serverAuthoritative', 'cheatProtection'],
   'Infrastructure': ['cloudSave', 'serverlessLogic', 'dedicatedServers', 'globalScaling', 'managedServices', 'selfHosting'],
-  'Operations': ['adminDashboard', 'playerSupport', 'moderation', 'loadTesting', 'gdprCompliance', 'aiFeatures'],
+  'Operations': ['adminDashboard', 'playerSupport', 'moderation', 'loadTesting', 'gdprCompliance'],
   'Platform & SDK': ['sourceCodeAccess', 'multiplatformSDK', 'customizable', 'extensible', 'sharedClientServerLogic'],
+  'AI': ['aiFeatures'],
 };
 
 export const featureLabels: Record<keyof LiveOpsFeatures, string> = {
