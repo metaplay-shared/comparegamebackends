@@ -52,6 +52,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       tooltip: 'Run the complete backend on your development machine with a single dotnet command. Debug server logic with breakpoints, test configs, and iterate without deploying to the cloud.',
       sourceUrl: 'https://docs.metaplay.io/introduction/getting-started/',
     },
+    aiCapabilities: {
+      text: 'Strong dev tooling (Agent + MCP); no in-product ML',
+      tooltip: 'Metaplay Agent installs SDK skills for coding agents, with Docs and Portal MCP servers and the MetaplayGPT chatbot. Live-game systems (matchmaking, segmentation, analytics) are rules-based, not ML; Metaplay frames its AI as developer tooling, "AI-ready" rather than "AI-powered".',
+      sourceUrl: 'https://docs.metaplay.io/miscellaneous/ai-assistants/',
+    },
   },
   playfab: {
     serverAuthority: {
@@ -98,6 +103,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       text: 'Cloud-only; no local backend server',
       tooltip: 'All backend logic runs in the cloud. There is no local development server \u2014 testing CloudScript or Azure Functions requires deploying to PlayFab\u2019s cloud environment.',
       sourceUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/sdks/sdk-overview',
+    },
+    aiCapabilities: {
+      text: 'GA in-product ML; dev assistant in preview',
+      tooltip: 'Azure-ML churn prediction feeds segmentation, and PlayFab Party adds real-time translation plus Azure AI Content Safety text moderation, all generally available. The PlayFab Copilot developer assistant in Game Manager remains in private preview.',
+      sourceUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/features/analytics/churn-prediction/overview',
     },
   },
   'heroic-labs': {
@@ -146,6 +156,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       tooltip: 'Local development uses Docker Compose to run Nakama alongside CockroachDB. Server logic is written in Go, Lua, or TypeScript and hot-reloaded during development.',
       sourceUrl: 'https://heroiclabs.com/docs/nakama/getting-started/docker-quickstart/',
     },
+    aiCapabilities: {
+      text: 'Satori ML via Databricks; minimal dev AI',
+      tooltip: 'The Satori plus Databricks integration runs ML for churn, LTV and spend forecasting, and engagement analysis, plus GenAI dataset queries. Developer-facing AI is limited to LLM-optimized docs; the Nakama MCP server is community-built, not official.',
+      sourceUrl: 'https://heroiclabs.com/docs/satori/guides/satori-databricks/',
+    },
   },
   'aws-gamelift': {
     serverAuthority: {
@@ -192,6 +207,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       text: 'Local testing via GameLift Anywhere',
       tooltip: 'GameLift Anywhere lets you register your local machine as a fleet instance for testing matchmaking and server integration without deploying to AWS.',
       sourceUrl: 'https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-intro-flavors.html',
+    },
+    aiCapabilities: {
+      text: 'Console AI assistant; ML matchmaking is DIY',
+      tooltip: 'Amazon Q Developer powers an AI console assistant (Dec 2025) for integration and troubleshooting. FlexMatch matchmaking is rule-based; adding ML skill ratings is a developer-built Amazon SageMaker pattern, not a built-in feature.',
+      sourceUrl: 'https://aws.amazon.com/about-aws/whats-new/2025/12/gamelift-servers-console-developers-ai-powered/',
     },
   },
   'unity-gaming-services': {
@@ -240,6 +260,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       tooltip: 'Backend logic must be deployed to Unity\u2019s cloud for testing. The Unity Editor integrates with UGS services, but there is no local backend server for offline development.',
       sourceUrl: 'https://docs.unity.com/ugs/en-us/manual/cloud-code/manual/scripts/getting-started',
     },
+    aiCapabilities: {
+      text: 'Backend AI moderation; engine-side Unity AI',
+      tooltip: 'Within UGS, Safe Text and Safe Voice provide AI text and voice moderation through Vivox. Engine-side Unity AI (open beta, which replaced Muse) and the on-device Inference Engine add development and runtime AI. Matchmaker and analytics are rule-based.',
+      sourceUrl: 'https://unity.com/products/safe-voice',
+    },
   },
   colyseus: {
     serverAuthority: {
@@ -286,6 +311,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       text: 'npm create, instant local server',
       tooltip: 'Scaffold a new project with npm create colyseus-app and start the server instantly. The lightweight Node.js runtime makes local iteration fast with no external dependencies.',
       sourceUrl: 'https://docs.colyseus.io/',
+    },
+    aiCapabilities: {
+      text: 'None beyond an llms.txt docs index',
+      tooltip: 'No platform AI. The docs site serves an official llms.txt index for AI coding agents, and a documentation MCP server exists but is community-built. Matchmaking is rule-based, with no built-in moderation or ML.',
+      sourceUrl: 'https://docs.colyseus.io/llms.txt',
     },
   },
   braincloud: {
@@ -334,6 +364,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       tooltip: 'All backend logic runs in brainCloud\u2019s cloud. Cloud Code scripts are edited in the Design Portal or uploaded via API. No local server available for offline development.',
       sourceUrl: 'https://docs.braincloudservers.com/learn/introduction/',
     },
+    aiCapabilities: {
+      text: 'brainBot portal assistant; no first-party ML',
+      tooltip: 'brainCloud 6.0 added brainBot, a Claude-powered assistant in the Design Portal that writes Cloud Code, configures integrations, and helps with LiveOps. There is no first-party ML; profanity moderation is a third-party WebPurify integration.',
+      sourceUrl: 'https://getbraincloud.com/features/brainbot/',
+    },
   },
   accelbyte: {
     serverAuthority: {
@@ -381,6 +416,11 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       tooltip: 'Platform services require cloud connectivity for development. The Extend SDK provides local scaffolding for custom extensions, but core services cannot run locally.',
       sourceUrl: 'https://docs.accelbyte.io/gaming-services/getting-started/',
     },
+    aiCapabilities: {
+      text: 'Two official MCP servers; thin in-product AI',
+      tooltip: 'AccelByte ships two official MCP servers (Extend SDK and AGS API) for AI-assisted development with Claude and Cursor. In-product AI is limited to rule-based matchmaking and moderation, with the AccelByte Intelligence Service ML pipeline still on the roadmap.',
+      sourceUrl: 'https://docs.accelbyte.io/gaming-services/modules/foundations/extend/app-in-depth-topics/extend-mcp-servers/',
+    },
   },
 };
 
@@ -394,4 +434,5 @@ export const dimensionLabels: { key: string; label: string }[] = [
   { key: 'deployment', label: 'Deployment' },
   { key: 'scalability', label: 'Scalability' },
   { key: 'devExperience', label: 'Dev Experience' },
+  { key: 'aiCapabilities', label: 'AI Capabilities' },
 ];
