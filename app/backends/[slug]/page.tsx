@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { backends, getBackendBySlug, pricingLabels } from '@/lib/backends';
 import { FeatureMatrix } from '@/components/FeatureMatrix';
 import { architectureData, dimensionLabels } from '@/lib/architecture';
+import { aiCapabilitiesData } from '@/lib/ai-capabilities';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -52,6 +53,7 @@ export default async function BackendPage({ params }: PageProps) {
   };
 
   const archData = architectureData[backend.slug];
+  const ai = aiCapabilitiesData[backend.slug];
 
   return (
     <div className="container-page py-12 md:py-16">
@@ -182,6 +184,52 @@ export default async function BackendPage({ params }: PageProps) {
                   );
                 })}
               </div>
+            </section>
+          )}
+
+          {/* AI Capabilities */}
+          {ai && (
+            <section className="card p-6">
+              <h2 className="text-xl font-semibold mb-2">AI Capabilities</h2>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">
+                How {backend.name} uses AI — both tooling for the developers building on it and AI/ML features inside the live game.
+              </p>
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+                {ai.summary}
+              </p>
+              <div className="space-y-5">
+                <div>
+                  <span className="inline-block text-xs font-medium text-primary-500 bg-primary-500/10 px-2 py-0.5 rounded mb-1.5">
+                    Developer tooling
+                  </span>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {ai.devTooling}
+                  </p>
+                </div>
+                <div>
+                  <span className="inline-block text-xs font-medium text-primary-500 bg-primary-500/10 px-2 py-0.5 rounded mb-1.5">
+                    In-product AI &amp; ML
+                  </span>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {ai.platformAI}
+                  </p>
+                </div>
+              </div>
+              {ai.sources && ai.sources.length > 0 && (
+                <div className="mt-5 pt-4 border-t border-neutral-100 dark:border-neutral-800 flex flex-wrap gap-x-4 gap-y-1">
+                  {ai.sources.map((s, i) => (
+                    <a
+                      key={i}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-primary-500 hover:text-primary-600 hover:underline"
+                    >
+                      {s.label} →
+                    </a>
+                  ))}
+                </div>
+              )}
             </section>
           )}
 

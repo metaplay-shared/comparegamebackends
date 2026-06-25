@@ -91,6 +91,14 @@ export interface BackendSource {
   url: string;
 }
 
+// AI capabilities, split into developer-facing tooling and in-product AI/ML
+export interface AICapabilities {
+  summary: string;       // Neutral overview of the platform's AI posture
+  devTooling: string;    // AI tooling for developers (assistants, MCP, codegen), or "None documented"
+  platformAI: string;    // In-product AI/ML features (churn, moderation, ML matchmaking...), or "None documented"
+  sources?: BackendSource[];
+}
+
 export interface Backend {
   slug: string;
   name: string;
