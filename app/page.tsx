@@ -15,8 +15,8 @@ export default function HomePage() {
               <span className="text-primary-500">for your game</span>
             </h1>
             <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
-              Compare game backend platforms side-by-side. Understand what you need,
-              see how game backends stack up, and make the right choice for your project.
+              An open, community-driven comparison of game backend platforms. Built by game developers,
+              for game developers — anyone can contribute, update, or correct information via pull request.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/backends" className="btn-primary text-center">
@@ -25,6 +25,7 @@ export default function HomePage() {
               <Link href="#why-backend" className="btn-secondary text-center">
                 Why Do I Need a Game Backend?
               </Link>
+              {/* TODO: Add GitHub repo link once migrated to Metaplay org */}
             </div>
           </div>
         </div>

@@ -19,20 +19,8 @@ function ArchCell({ cell }: { cell: CellData }) {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState<TooltipPosition | null>(null);
   const triggerRef = useRef<HTMLTableCellElement>(null);
-  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  const showTooltip = () => {
-    clearTimeout(hideTimeoutRef.current);
-    setIsVisible(true);
-  };
-
-  const hideTooltip = () => {
-    hideTimeoutRef.current = setTimeout(() => setIsVisible(false), 150);
-  };
-
-  useEffect(() => {
-    return () => clearTimeout(hideTimeoutRef.current);
-  }, []);
+  const showTooltip = () => setIsVisible(true);
+  const hideTooltip = () => setIsVisible(false);
 
   useEffect(() => {
     if (isVisible && triggerRef.current) {
@@ -125,39 +113,37 @@ export function ArchitectureComparisonTable() {
         <thead>
           <tr className="border-b border-neutral-200 dark:border-neutral-700">
             <th className="text-left py-3 px-4 font-medium sticky left-0 z-10 bg-white dark:bg-neutral-900">
-              Platform
+              Dimension
             </th>
-            {dimensionLabels.map((dim) => (
-              <th key={dim.key} className="text-left py-3 px-3 font-medium whitespace-nowrap">
-                <span className="text-xs">{dim.label}</span>
+            {sortedBackends.map((backend) => (
+              <th key={backend.slug} className="text-left py-3 px-3 font-medium whitespace-nowrap">
+                <Link
+                  href={`/backends/${backend.slug}`}
+                  className="text-xs hover:text-primary-500 transition-colors"
+                >
+                  {backend.name}
+                </Link>
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {sortedBackends.map((backend) => {
-            const data = architectureData[backend.slug];
-            return (
-              <tr
-                key={backend.slug}
-                className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
-              >
-                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900">
-                  <Link
-                    href={`/backends/${backend.slug}`}
-                    className="font-display text-neutral-900 dark:text-neutral-100 hover:text-primary-500 transition-colors text-xs font-medium"
-                  >
-                    {backend.name}
-                  </Link>
-                </td>
-                {dimensionLabels.map((dim) => {
-                  const cell = data?.[dim.key];
-                  if (!cell) return <td key={dim.key} className="py-3 px-3 text-xs text-neutral-400">{'\u2014'}</td>;
-                  return <ArchCell key={dim.key} cell={cell} />;
-                })}
-              </tr>
-            );
-          })}
+          {dimensionLabels.map((dim) => (
+            <tr
+              key={dim.key}
+              className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
+            >
+              <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900 whitespace-nowrap">
+                <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">{dim.label}</span>
+              </td>
+              {sortedBackends.map((backend) => {
+                const data = architectureData[backend.slug];
+                const cell = data?.[dim.key];
+                if (!cell) return <td key={backend.slug} className="py-3 px-3 text-xs text-neutral-400">{'\u2014'}</td>;
+                return <ArchCell key={backend.slug} cell={cell} />;
+              })}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

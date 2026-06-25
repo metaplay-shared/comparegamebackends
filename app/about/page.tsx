@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Learn about Live Service Backends, our mission to educate game developers about live ops, and our approach to platform comparisons.',
+    'An open-source, community-driven comparison of game backend platforms. Published by Metaplay, maintained by the game dev community.',
 };
 
 export default function AboutPage() {
@@ -15,25 +15,45 @@ export default function AboutPage() {
         <div className="mb-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">About This Site</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
-            Helping game developers understand and succeed with live service games.
+            An open-source community resource for game developers evaluating backend platforms.
           </p>
         </div>
 
         {/* Mission */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
+          <h2 className="text-2xl font-semibold mb-4">Why This Exists</h2>
           <div className="prose prose-slate dark:prose-invert max-w-none">
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              The live service model has transformed gaming. Games that once shipped as complete
-              products now operate as evolving services, continuously updated and improved over
-              years of operation. This shift requires new skills, new infrastructure, and new
-              ways of thinking about game development.
+              Choosing a game backend is one of the most consequential infrastructure decisions
+              a game studio makes. Yet most of the information available comes from the vendors
+              themselves — marketing pages, cherry-picked case studies, and feature lists that
+              are hard to compare across platforms.
             </p>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
-              This site exists to help game developers navigate this landscape. We provide
-              educational content about live ops best practices, and objective comparisons
-              of backend platforms to help you make informed infrastructure decisions.
+              We built this site to be the resource we wished existed: an honest, objective
+              comparison maintained by the community, not by any single vendor. Every piece
+              of data on this site is backed by public documentation, and anyone can propose
+              changes by submitting a pull request to the open-source repo.
             </p>
+          </div>
+        </section>
+
+        {/* Community Driven */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4">Community-Driven</h2>
+          <div className="prose prose-slate dark:prose-invert max-w-none">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              This site is fully open source. The entire codebase — every platform comparison,
+              feature claim, and architectural assessment — lives in a public GitHub repo that
+              anyone can inspect, fork, and contribute to.
+            </p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
+              Found something outdated? Think a platform is missing a feature we haven&apos;t
+              listed? Spotted a factual error? Open a pull request. Whether you&apos;re a game
+              developer, a platform vendor, or just someone who cares about accuracy, your
+              contributions are welcome.
+            </p>
+            {/* TODO: Add GitHub repo link once migrated to Metaplay org */}
           </div>
         </section>
 
@@ -74,19 +94,19 @@ export default function AboutPage() {
 
         {/* Our Approach */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Our Approach to Comparisons</h2>
+          <h2 className="text-2xl font-semibold mb-4">Our Approach</h2>
           <div className="space-y-4">
             <div className="card p-5">
               <h3 className="font-semibold mb-2 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 text-xs font-bold">
                   1
                 </span>
-                Feature-Based, Not Opinion-Based
+                Facts, Not Opinions
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                We focus on objective feature comparisons rather than subjective ratings.
-                Each platform has strengths for different use cases - our job is to help
-                you identify what matters for your game.
+                Every feature claim links to public documentation. No subjective ratings,
+                no &quot;best of&quot; picks. Each platform has strengths for different use cases —
+                our job is to present the facts so you can decide what matters for your game.
               </p>
             </div>
 
@@ -95,13 +115,12 @@ export default function AboutPage() {
                 <span className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 text-xs font-bold">
                   2
                 </span>
-                Live Service Lens
+                Open to Correction
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                We evaluate platforms specifically for live service game requirements.
-                Some excellent tools are partial solutions that handle networking but not
-                live ops - we clearly distinguish between comprehensive platforms and
-                specialized tools.
+                No single person or company can be an expert on every platform. That&apos;s
+                why this is a community project. If something is wrong or outdated, anyone
+                can fix it — including the platform vendors themselves.
               </p>
             </div>
 
@@ -110,49 +129,73 @@ export default function AboutPage() {
                 <span className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 text-xs font-bold">
                   3
                 </span>
-                Practical Focus
+                Live Service Lens
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                We highlight what each platform is best suited for, documented limitations,
-                and practical considerations for different game types and team sizes.
+                We evaluate platforms specifically for live service game requirements.
+                Some excellent tools handle networking but not live ops — we clearly
+                distinguish between comprehensive platforms and specialized tools.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Keeping Updated */}
+        {/* Published by Metaplay */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Staying Current</h2>
+          <h2 className="text-2xl font-semibold mb-4">Published by Metaplay</h2>
           <div className="prose prose-slate dark:prose-invert max-w-none">
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-              The game backend space evolves quickly. Platforms add new features, pricing
-              changes, and new solutions emerge. We regularly review and update our
-              information to ensure accuracy.
+              This site was created and is published by{' '}
+              <a href="https://metaplay.io" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:text-primary-600 hover:underline">Metaplay</a>,
+              a game backend platform. Yes, Metaplay is one of the platforms compared here.
+              We believe transparency is more valuable than pretending to be neutral from
+              the shadows — so here it is, plainly stated.
             </p>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
-              Each platform page shows when it was last updated. If you notice outdated
-              information, please let us know.
+              We created this resource because we think the game dev community benefits from
+              honest, factual comparisons. If our platform is genuinely good, the facts speak
+              for themselves. And because the repo is open, anyone can hold us accountable
+              if the information is ever skewed.
             </p>
           </div>
         </section>
 
-        {/* Contact */}
+        {/* Staying Current */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4">Staying Current</h2>
+          <div className="prose prose-slate dark:prose-invert max-w-none">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              The game backend space evolves quickly. Platforms add features, pricing
+              changes, and new solutions emerge. Because this is a community project,
+              it stays current through contributions — not through one person trying
+              to track every changelog.
+            </p>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
+              Each platform page shows when it was last updated. If you spot something
+              outdated, submit a pull request or open an issue on GitHub.
+            </p>
+            {/* TODO: Add GitHub repo link once migrated to Metaplay org */}
+          </div>
+        </section>
+
+        {/* Contribute */}
         <section className="card p-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4">Questions or Feedback?</h2>
+          <h2 className="text-2xl font-semibold mb-4">Contribute</h2>
           <p className="text-slate-600 dark:text-slate-400 mb-6">
-            Have a platform we should cover? Found an error? Want to contribute?
-            We&apos;d love to hear from you.
+            Want to add a platform, fix an error, or improve the content?
+            The entire site is open source — fork the repo and submit a pull request.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
+            {/* TODO: Replace with GitHub repo link once migrated to Metaplay org */}
+            <Link href="/backends" className="btn-primary">
+              Explore Platforms
+            </Link>
             <a
               href="mailto:hello@gamebackends.com"
-              className="btn-primary"
+              className="btn-secondary"
             >
               Get in Touch
             </a>
-            <Link href="/backends" className="btn-secondary">
-              Explore Platforms
-            </Link>
           </div>
         </section>
       </div>

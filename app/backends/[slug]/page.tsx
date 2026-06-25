@@ -154,10 +154,10 @@ export default async function BackendPage({ params }: PageProps) {
                   return (
                     <div key={dim.key} className="border-b border-neutral-100 dark:border-neutral-800 pb-4 last:border-0 last:pb-0">
                       <div className="flex items-start gap-3">
-                        <span className="text-xs font-medium text-primary-500 bg-primary-500/10 px-2 py-1 rounded whitespace-nowrap mt-0.5">
+                        <span className="text-xs font-medium text-primary-500 bg-primary-500/10 px-2 py-1 rounded whitespace-nowrap mt-0.5 min-w-[120px] text-center">
                           {dim.label}
                         </span>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
                             {cell.text}
                           </p>

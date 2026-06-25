@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   backends,
@@ -12,9 +12,6 @@ import {
   getFeatureDescription,
 } from '@/lib/backends';
 import { FeatureTooltip } from './FeatureTooltip';
-
-type SortField = 'name';
-type SortDirection = 'asc' | 'desc';
 
 function CheckIcon() {
   return (
@@ -42,49 +39,10 @@ function XIcon() {
 
 // Get all feature keys for the "All" category
 const allFeatureKeys = Object.values(featureCategories).flat();
+const sortedBackends = [...backends].sort((a, b) => a.name.localeCompare(b.name));
 
 export function ComparisonTable() {
-  const [sortField, setSortField] = useState<SortField>('name');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-
-  const sortedBackends = useMemo(() => {
-    const result = [...backends];
-
-    // Apply sorting
-    result.sort((a, b) => {
-      const comparison = a.name.localeCompare(b.name);
-      return sortDirection === 'asc' ? comparison : -comparison;
-    });
-
-    return result;
-  }, [sortDirection]);
-
-  const handleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortField(field);
-      setSortDirection('asc');
-    }
-  };
-
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return null;
-    return (
-      <svg
-        className={`h-4 w-4 ml-1 inline ${sortDirection === 'desc' ? 'rotate-180' : ''}`}
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-          clipRule="evenodd"
-        />
-      </svg>
-    );
-  };
 
   const categoryKeys = ['All', ...Object.keys(featureCategories)];
   const selectedFeatures = selectedCategory === 'All'
@@ -120,58 +78,45 @@ export function ComparisonTable() {
         </div>
       </div>
 
-      {/* Scroll hint for All view */}
-      {selectedCategory === 'All' && (
-        <div className="mb-2 text-right">
-          <span className="inline-block text-xs text-neutral-400">
-            Scroll →
-          </span>
-        </div>
-      )}
-
       {/* Table */}
       <div className="overflow-x-auto scrollbar-thin">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-neutral-200 dark:border-neutral-800">
               <th className="text-left py-3 px-4 font-medium sticky left-0 z-10 bg-white dark:bg-neutral-900">
-                <button
-                  onClick={() => handleSort('name')}
-                  className="hover:text-primary-500 inline-flex items-center"
-                >
-                  Game Backend
-                  <SortIcon field="name" />
-                </button>
+                Feature
               </th>
-              {selectedFeatures.map((feature) => (
-                <th key={feature} className="text-center py-3 px-2 font-medium whitespace-nowrap">
-                  <span className="text-xs">{featureLabels[feature as keyof LiveOpsFeatures]}</span>
+              {sortedBackends.map((backend) => (
+                <th key={backend.slug} className="text-center py-3 px-2 font-medium whitespace-nowrap">
+                  <Link
+                    href={`/backends/${backend.slug}`}
+                    className="text-xs hover:text-primary-500 transition-colors"
+                  >
+                    {backend.name}
+                  </Link>
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {sortedBackends.map((backend) => (
+            {selectedFeatures.map((feature) => (
               <tr
-                key={backend.slug}
+                key={feature}
                 className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
               >
-                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900">
-                  <Link
-                    href={`/backends/${backend.slug}`}
-                    className="font-display text-neutral-900 dark:text-neutral-100 hover:text-primary-500 transition-colors"
-                  >
-                    {backend.name}
-                  </Link>
+                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900 whitespace-nowrap">
+                  <span className="text-xs text-neutral-900 dark:text-neutral-100">
+                    {featureLabels[feature as keyof LiveOpsFeatures]}
+                  </span>
                 </td>
-                {selectedFeatures.map((feature) => {
+                {sortedBackends.map((backend) => {
                   const featureValue = backend.features[feature as keyof LiveOpsFeatures];
                   const hasFeature = isFeatureSupported(featureValue);
                   const sourceUrl = getFeatureSourceUrl(featureValue);
                   const description = getFeatureDescription(featureValue);
 
                   return (
-                    <td key={feature} className="py-3 px-2 text-center">
+                    <td key={backend.slug} className="py-3 px-2 text-center">
                       <FeatureTooltip description={description} sourceUrl={sourceUrl}>
                         <span className={`inline-flex justify-center ${description ? 'cursor-help' : ''}`}>
                           {hasFeature ? <CheckIcon /> : <XIcon />}
@@ -185,12 +130,6 @@ export function ComparisonTable() {
           </tbody>
         </table>
       </div>
-
-      {sortedBackends.length === 0 && (
-        <div className="text-center py-12 text-neutral-500 dark:text-neutral-400">
-          No game backends match your current filters. Try adjusting your criteria.
-        </div>
-      )}
     </div>
   );
 }

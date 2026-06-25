@@ -175,44 +175,52 @@ export function CondensedComparisonTable() {
         <thead>
           <tr className="border-b border-neutral-200 dark:border-neutral-700">
             <th className="text-left py-3 px-4 font-medium sticky left-0 z-10 bg-white dark:bg-neutral-900">
-              Game Backend
+              Category
             </th>
-            <th className="text-center py-3 px-2 font-medium whitespace-nowrap">
-              <span className="text-xs">Architecture</span>
-            </th>
-            {categories.map((category) => (
-              <th key={category} className="text-center py-3 px-2 font-medium whitespace-nowrap">
-                <span className="text-xs">{category}</span>
+            {sortedBackends.map((backend) => (
+              <th key={backend.slug} className="text-center py-3 px-2 font-medium whitespace-nowrap">
+                <Link
+                  href={`/backends/${backend.slug}`}
+                  className="text-xs hover:text-primary-500 transition-colors"
+                >
+                  {backend.name}
+                </Link>
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {sortedBackends.map((backend) => (
-            <tr
-              key={backend.slug}
-              className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
-            >
-              <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900">
-                <Link
-                  href={`/backends/${backend.slug}`}
-                  className="font-display text-neutral-900 dark:text-neutral-100 hover:text-primary-500 transition-colors"
-                >
-                  {backend.name}
-                </Link>
-              </td>
-              <td className="py-3 px-2 text-center">
+          {/* Architecture row */}
+          <tr className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
+            <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900 whitespace-nowrap">
+              <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">Architecture</span>
+            </td>
+            {sortedBackends.map((backend) => (
+              <td key={backend.slug} className="py-3 px-2 text-center">
                 <span className="inline-block text-[10px] leading-tight font-medium px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
                   {backend.architectureLabel}
                 </span>
               </td>
-              {categories.map((category) => {
-                const categoryFeatures = featureCategories[category as keyof typeof featureCategories];
-                const result = getCategoryClassification(backend.features, categoryFeatures);
-                return <ClassificationCell key={category} result={result} />;
-              })}
-            </tr>
-          ))}
+            ))}
+          </tr>
+          {/* Category rows */}
+          {categories.map((category) => {
+            const categoryFeatures = featureCategories[category as keyof typeof featureCategories];
+            return (
+              <tr
+                key={category}
+                className="border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
+              >
+                <td className="py-3 px-4 sticky left-0 z-10 bg-white dark:bg-neutral-900 whitespace-nowrap">
+                  <span className="text-xs font-medium text-neutral-900 dark:text-neutral-100">{category}</span>
+                </td>
+                {sortedBackends.map((backend) => {
+                  const result = getCategoryClassification(backend.features, categoryFeatures);
+                  return <ClassificationCell key={backend.slug} result={result} />;
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
