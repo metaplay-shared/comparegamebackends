@@ -38,7 +38,7 @@ jobs:
   freshness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
 
@@ -48,7 +48,7 @@ jobs:
 
       - name: Fetch Anthropic API key from Vault (OIDC)
         id: vault
-        uses: hashicorp/vault-action@v3
+        uses: hashicorp/vault-action@4c06c5ccf5c0761b6029f56cfb1dcf5565918a3b # v3
         with:
           url: ${{ vars.VAULT_ADDR }}
           method: jwt
@@ -61,7 +61,7 @@ jobs:
         run: git checkout -b freshness/${{ github.run_id }}
 
       - name: Claude — check providers and draft neutral updates
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@428971d2ecd6e3a7cb0ee0da2a3a8b33fdb3678d # v1
         with:
           anthropic_api_key: ${{ steps.vault.outputs.anthropic_api_key }}
           claude_args: "--max-turns 40 --model claude-sonnet-4-6 --allowedTools WebSearch,WebFetch,Bash,Read,Edit,Write,Glob,Grep"
