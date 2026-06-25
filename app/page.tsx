@@ -25,7 +25,14 @@ export default function HomePage() {
               <Link href="#why-backend" className="btn-secondary text-center">
                 Why Do I Need a Game Backend?
               </Link>
-              {/* TODO: Add GitHub repo link once migrated to Metaplay org */}
+              <a
+                href="https://github.com/metaplay-shared/comparegamebackends"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary text-center"
+              >
+                View on GitHub
+              </a>
             </div>
           </div>
         </div>
@@ -191,6 +198,48 @@ export default function HomePage() {
             title="Infrastructure"
             items={['Global scaling', 'Multiplayer support', 'Admin tools']}
           />
+        </div>
+      </section>
+
+      {/* AI in Game Backends */}
+      <section className="border-y border-neutral-200 dark:border-neutral-800">
+        <div className="container-page py-16 md:py-20">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <span className="inline-block text-xs font-medium text-primary-500 bg-primary-500/10 px-3 py-1 rounded-full mb-4">
+              New
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">AI is reshaping game backends</h2>
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+              AI shows up in two very different places: tooling that helps you <em>build</em> on a
+              platform, and AI features baked into the live game. They are easy to conflate, so we
+              compare them separately for every platform.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
+            <div className="card p-6">
+              <h3 className="font-medium mb-2">AI for developers</h3>
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                Coding assistants, MCP servers, agent skills, and AI-aware docs that let tools like
+                Claude and Cursor understand a platform&apos;s SDK and APIs. This is where the fastest
+                movement is right now — some platforms ship official MCP servers, others ship nothing.
+              </p>
+            </div>
+            <div className="card p-6">
+              <h3 className="font-medium mb-2">AI inside the game</h3>
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                In-product machine learning: churn and LTV prediction, ML-driven matchmaking, and
+                AI text and voice moderation. Some platforms have shipped these; many describe them
+                as roadmap. We note which is which.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <Link href="/backends" className="btn-secondary">
+              See how each platform compares on AI
+            </Link>
+          </div>
         </div>
       </section>
 
