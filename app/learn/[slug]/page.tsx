@@ -94,7 +94,7 @@ const articleContent: Record<string, { content: React.ReactNode }> = {
 
         <SectionHeader number={5} title="Is Live Service Right for You?" />
         <p className="text-slate-600 dark:text-slate-400 mb-4">
-          Live service isn't right for every game. Ask yourself:
+          Live service isn&apos;t right for every game. Ask yourself:
         </p>
         <div className="space-y-3 my-6">
           {[
@@ -198,7 +198,7 @@ const articleContent: Record<string, { content: React.ReactNode }> = {
 
         <Callout type="warning" title="Remember">
           Each of these pillars requires specific backend capabilities. When evaluating
-          platforms, consider how well they support each pillar and whether you'll need to
+          platforms, consider how well they support each pillar and whether you&apos;ll need to
           build or integrate additional tools.
         </Callout>
       </>

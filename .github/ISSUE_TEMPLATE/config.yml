@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Compare Game Backends (live site)
+    url: https://comparegamebackends.com
+    about: Browse the comparison and read how the project works before opening an issue.

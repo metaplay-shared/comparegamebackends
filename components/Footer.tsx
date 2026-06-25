@@ -54,9 +54,19 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/contribute" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
+                  Contribute
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
                   About
                 </Link>
+              </li>
+              <li>
+                <a href="https://github.com/metaplay-shared/comparegamebackends" target="_blank" rel="noopener noreferrer" className="text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors font-display">
+                  GitHub
+                </a>
               </li>
             </ul>
           </div>

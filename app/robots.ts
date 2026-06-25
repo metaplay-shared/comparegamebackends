@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://gamebackends.com/sitemap.xml',
+    sitemap: 'https://comparegamebackends.com/sitemap.xml',
   };
 }

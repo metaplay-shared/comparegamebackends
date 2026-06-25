@@ -53,7 +53,13 @@ export default function AboutPage() {
               developer, a platform vendor, or just someone who cares about accuracy, your
               contributions are welcome.
             </p>
-            {/* TODO: Add GitHub repo link once migrated to Metaplay org */}
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
+              The repository lives at{' '}
+              <a href="https://github.com/metaplay-shared/comparegamebackends" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:text-primary-600 hover:underline">github.com/metaplay-shared/comparegamebackends</a>.
+              See the{' '}
+              <Link href="/contribute" className="text-primary-500 hover:text-primary-600 hover:underline">contribution guide</Link>{' '}
+              for how pull requests are reviewed.
+            </p>
           </div>
         </section>
 
@@ -172,9 +178,9 @@ export default function AboutPage() {
             </p>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-4">
               Each platform page shows when it was last updated. If you spot something
-              outdated, submit a pull request or open an issue on GitHub.
+              outdated, submit a pull request or{' '}
+              <a href="https://github.com/metaplay-shared/comparegamebackends/issues/new/choose" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:text-primary-600 hover:underline">open an issue on GitHub</a>.
             </p>
-            {/* TODO: Add GitHub repo link once migrated to Metaplay org */}
           </div>
         </section>
 
@@ -186,16 +192,17 @@ export default function AboutPage() {
             The entire site is open source — fork the repo and submit a pull request.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            {/* TODO: Replace with GitHub repo link once migrated to Metaplay org */}
-            <Link href="/backends" className="btn-primary">
-              Explore Platforms
-            </Link>
             <a
-              href="mailto:hello@gamebackends.com"
-              className="btn-secondary"
+              href="https://github.com/metaplay-shared/comparegamebackends"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
             >
-              Get in Touch
+              View on GitHub
             </a>
+            <Link href="/contribute" className="btn-secondary">
+              How to Contribute
+            </Link>
           </div>
         </section>
       </div>
