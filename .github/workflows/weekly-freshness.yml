@@ -37,6 +37,9 @@ permissions:
 jobs:
   freshness:
     runs-on: ubuntu-latest
+    # Dormant until Vault is configured: with no VAULT_ADDR repo variable set, this
+    # job is skipped (not failed), so merging before infra setup causes no noise.
+    if: ${{ vars.VAULT_ADDR != '' }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
