@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { educationalContent } from '@/lib/backends';
 import { Callout, KeyPoints, StatCard, StatGrid, SectionHeader, FeatureList } from '@/components/learn';
+import { JsonLd } from '@/components/JsonLd';
+import { SITE_NAME, SITE_URL, PUBLISHER, breadcrumbSchema } from '@/lib/seo';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -577,6 +579,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: content.title,
     description: content.description,
+    keywords: [content.title, 'live service games', 'live ops', 'game backend'],
+    alternates: { canonical: `/learn/${content.slug}` },
+    openGraph: {
+      type: 'article',
+      title: content.title,
+      description: content.description,
+      url: `/learn/${content.slug}`,
+    },
   };
 }
 
@@ -593,8 +603,33 @@ export default async function LearnArticlePage({ params }: PageProps) {
   const prevArticle = currentIndex > 0 ? educationalContent[currentIndex - 1] : null;
   const nextArticle = currentIndex < educationalContent.length - 1 ? educationalContent[currentIndex + 1] : null;
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: contentMeta.title,
+    description: contentMeta.description,
+    url: `${SITE_URL}/learn/${contentMeta.slug}`,
+    mainEntityOfPage: `${SITE_URL}/learn/${contentMeta.slug}`,
+    author: { '@type': 'Organization', name: PUBLISHER.name, url: PUBLISHER.url },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon.svg` },
+    },
+  };
+
   return (
     <div className="container-page py-12 md:py-16">
+      <JsonLd
+        data={[
+          articleSchema,
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Learn', path: '/learn' },
+            { name: contentMeta.title, path: `/learn/${contentMeta.slug}` },
+          ]),
+        ]}
+      />
       {/* Breadcrumb */}
       <nav className="mb-8">
         <ol className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">

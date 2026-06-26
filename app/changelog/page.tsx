@@ -5,6 +5,14 @@ export const metadata: Metadata = {
   title: 'Changelog',
   description:
     'A running log of every change to Compare Game Backends, pulled straight from the public GitHub repository. Every update is a commit anyone can inspect.',
+  keywords: ['compare game backends changelog', 'game backend data updates'],
+  alternates: { canonical: '/changelog' },
+  openGraph: {
+    title: 'Changelog',
+    description:
+      'A running log of every change to Compare Game Backends, pulled straight from the public GitHub repository.',
+    url: '/changelog',
+  },
 };
 
 // Refresh hourly; every merge to main also triggers a fresh deploy.

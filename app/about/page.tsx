@@ -4,7 +4,19 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'An open-source, community-driven comparison of game backend platforms. Published by Metaplay, maintained by the game dev community.',
+    'An open-source, community-driven comparison of game backend platforms. Published by Metaplay, maintained by the game dev community, with every claim sourced to public documentation.',
+  keywords: [
+    'about compare game backends',
+    'game backend comparison methodology',
+    'neutral game backend comparison',
+  ],
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About Compare Game Backends',
+    description:
+      'An open-source, community-driven comparison of game backend platforms. Published by Metaplay, maintained by the game dev community.',
+    url: '/about',
+  },
 };
 
 export default function AboutPage() {

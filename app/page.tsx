@@ -1,11 +1,25 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BackendCard } from '@/components/BackendCard';
 import { backends, educationalContent } from '@/lib/backends';
+import { JsonLd } from '@/components/JsonLd';
+import { itemListSchema } from '@/lib/seo';
+
+// Home keeps the layout's default title; only the canonical is set here so it
+// does not inherit a wrong value from another route.
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
+  const platformsList = itemListSchema(
+    'Game backend platforms compared',
+    backends.map((b) => ({ name: b.name, path: `/backends/${b.slug}` }))
+  );
 
   return (
     <div>
+      <JsonLd data={platformsList} />
       {/* Hero Section */}
       <section className="border-b border-neutral-200 dark:border-neutral-800">
         <div className="container-page py-20 md:py-28">
