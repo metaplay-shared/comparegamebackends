@@ -1,0 +1,12 @@
+# Keeps the SHA-pinned GitHub Actions (and npm deps) current and patched.
+# Dependabot opens PRs to bump the pins; they go through the same CI + review.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"

@@ -1,0 +1,22 @@
+name: Neutrality check
+
+# Fails a PR if banned marketing / AI-tell language appears in newly added
+# comparison data. Runs on every PR that touches the data files — including the
+# automated weekly freshness PRs. No secrets required.
+on:
+  pull_request:
+    paths:
+      - 'lib/backends.ts'
+      - 'lib/architecture.ts'
+      - 'lib/ai-capabilities.ts'
+      - 'scripts/check-neutrality.mjs'
+
+jobs:
+  neutrality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+      - name: Check for banned marketing / AI-tell language
+        run: node scripts/check-neutrality.mjs "origin/${{ github.base_ref }}"
