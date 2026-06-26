@@ -7,6 +7,18 @@ export const metadata: Metadata = {
   title: 'Contribute',
   description:
     'How to contribute to Compare Game Backends — an open-source, community-maintained comparison of game backend platforms. Fork the repo, open a pull request, and a maintainer reviews it.',
+  keywords: [
+    'contribute game backend comparison',
+    'open source game backend data',
+    'add a game backend platform',
+  ],
+  alternates: { canonical: '/contribute' },
+  openGraph: {
+    title: 'Contribute to Compare Game Backends',
+    description:
+      'Fork the repo, open a pull request, and a maintainer reviews it. Corrections welcome from anyone, including competing vendors.',
+    url: '/contribute',
+  },
 };
 
 const steps = [

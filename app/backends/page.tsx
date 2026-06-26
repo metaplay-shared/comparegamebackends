@@ -1,16 +1,45 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArchitectureComparisonTable } from '@/components/ArchitectureComparisonTable';
+import { JsonLd } from '@/components/JsonLd';
+import { backends } from '@/lib/backends';
+import { breadcrumbSchema, itemListSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Compare Game Backends',
   description:
-    'Compare game backend platforms side-by-side across the architectural dimensions that matter most for live service games.',
+    'Compare game backend platforms side-by-side across the architectural dimensions that matter most for live service games — server authority, source access, config pipelines, scalability, and more.',
+  keywords: [
+    'game backend comparison',
+    'compare game backends',
+    'game backend architecture',
+    'backend feature matrix',
+    'live service game infrastructure',
+  ],
+  alternates: { canonical: '/backends' },
+  openGraph: {
+    title: 'Compare Game Backends',
+    description:
+      'Compare game backend platforms side-by-side across the architectural dimensions that matter most for live service games.',
+    url: '/backends',
+  },
 };
 
 export default function ComparePage() {
   return (
     <div className="container-page py-12 md:py-16">
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Compare Backends', path: '/backends' },
+          ]),
+          itemListSchema(
+            'Game backend platforms compared',
+            backends.map((b) => ({ name: b.name, path: `/backends/${b.slug}` }))
+          ),
+        ]}
+      />
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Compare Game Backends</h1>

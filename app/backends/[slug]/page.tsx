@@ -6,6 +6,8 @@ import { backends, getBackendBySlug, pricingLabels } from '@/lib/backends';
 import { FeatureMatrix } from '@/components/FeatureMatrix';
 import { architectureData, dimensionLabels } from '@/lib/architecture';
 import { aiCapabilitiesData } from '@/lib/ai-capabilities';
+import { JsonLd } from '@/components/JsonLd';
+import { SITE_NAME, PUBLISHER, breadcrumbSchema } from '@/lib/seo';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -25,12 +27,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Platform Not Found' };
   }
 
+  const title = `${backend.name} - Live Service Game Backend`;
+
   return {
-    title: `${backend.name} - Live Service Game Backend`,
+    title,
     description: backend.description,
+    keywords: [
+      backend.name,
+      `${backend.name} backend`,
+      `${backend.name} alternatives`,
+      `${backend.name} features`,
+      'game backend comparison',
+    ],
+    alternates: { canonical: `/backends/${backend.slug}` },
     openGraph: {
-      title: `${backend.name} - Live Service Game Backend`,
+      type: 'article',
+      title,
       description: backend.tagline,
+      url: `/backends/${backend.slug}`,
     },
   };
 }
@@ -55,8 +69,35 @@ export default async function BackendPage({ params }: PageProps) {
   const archData = architectureData[backend.slug];
   const ai = aiCapabilitiesData[backend.slug];
 
+  const softwareSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: backend.name,
+    description: backend.description,
+    applicationCategory: 'Game backend platform (BaaS)',
+    operatingSystem: 'Cross-platform',
+    url: backend.website,
+    sameAs: [backend.website, backend.docsUrl, backend.githubUrl].filter(Boolean),
+    // Disclosed: the comparison entry is published by Metaplay.
+    subjectOf: {
+      '@type': 'WebPage',
+      name: `${backend.name} on ${SITE_NAME}`,
+      publisher: { '@type': 'Organization', name: PUBLISHER.name, url: PUBLISHER.url },
+    },
+  };
+
   return (
     <div className="container-page py-12 md:py-16">
+      <JsonLd
+        data={[
+          softwareSchema,
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Compare Backends', path: '/backends' },
+            { name: backend.name, path: `/backends/${backend.slug}` },
+          ]),
+        ]}
+      />
       {/* Breadcrumb */}
       <nav className="mb-8">
         <ol className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">

@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { categories, getCategoryBySlug, getBackendsByGameType } from '@/lib/backends';
 import { BackendCard } from '@/components/BackendCard';
 import { GameType } from '@/lib/types';
+import { JsonLd } from '@/components/JsonLd';
+import { breadcrumbSchema, itemListSchema } from '@/lib/seo';
 
 interface PageProps {
   params: Promise<{ gameType: string }>;
@@ -23,12 +25,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Game Type Not Found' };
   }
 
+  const title = `${categoryData.name} - Backend Options`;
+
   return {
-    title: `${categoryData.name} - Backend Solutions`,
+    title,
     description: categoryData.description,
+    keywords: [
+      categoryData.name,
+      `${categoryData.name} backend`,
+      `backend for ${categoryData.name}`,
+      'game backend comparison',
+    ],
+    alternates: { canonical: `/games/${categoryData.slug}` },
     openGraph: {
-      title: `${categoryData.name} - Backend Solutions`,
+      title,
       description: categoryData.description,
+      url: `/games/${categoryData.slug}`,
     },
   };
 }
@@ -119,6 +131,19 @@ export default async function GameTypePage({ params }: PageProps) {
 
   return (
     <div className="container-page py-12 md:py-16">
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Game Types', path: '/backends' },
+            { name: categoryData.name, path: `/games/${categoryData.slug}` },
+          ]),
+          itemListSchema(
+            `Game backends for ${categoryData.name}`,
+            gameBackends.map((b) => ({ name: b.name, path: `/backends/${b.slug}` }))
+          ),
+        ]}
+      />
       {/* Breadcrumb */}
       <nav className="mb-8">
         <ol className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">

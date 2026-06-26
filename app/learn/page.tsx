@@ -1,11 +1,27 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { educationalContent } from '@/lib/backends';
+import { JsonLd } from '@/components/JsonLd';
+import { breadcrumbSchema, itemListSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: 'Learn - Live Service Game Operations',
   description:
-    'Learn everything you need to know about running a live service game - from player retention to monetization, analytics to live ops.',
+    'Guides on running a live service game — live ops, player retention, monetization and game economy, and analytics — and how backend platforms support each one.',
+  keywords: [
+    'live service games',
+    'live ops guide',
+    'game monetization',
+    'player retention',
+    'game analytics',
+  ],
+  alternates: { canonical: '/learn' },
+  openGraph: {
+    title: 'Learn - Live Service Game Operations',
+    description:
+      'Guides on running a live service game — live ops, retention, monetization, and analytics.',
+    url: '/learn',
+  },
 };
 
 const guideIcons: Record<string, React.ReactNode> = {
@@ -39,6 +55,18 @@ const guideIcons: Record<string, React.ReactNode> = {
 export default function LearnPage() {
   return (
     <div className="container-page py-12 md:py-16">
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Learn', path: '/learn' },
+          ]),
+          itemListSchema(
+            'Live service game operations guides',
+            educationalContent.map((c) => ({ name: c.title, path: `/learn/${c.slug}` }))
+          ),
+        ]}
+      />
       {/* Hero Header */}
       <div className="max-w-3xl mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-600 text-sm font-medium mb-4">
