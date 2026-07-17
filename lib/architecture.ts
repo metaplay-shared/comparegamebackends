@@ -303,8 +303,8 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       sourceUrl: 'https://colyseus.io/pricing/',
     },
     scalability: {
-      text: 'Vertical only; horizontal via Redis (roadmap)',
-      tooltip: 'A single Colyseus process scales vertically. Multi-process scaling requires manual room distribution. Native Redis-based horizontal scaling is on the roadmap but not yet production-ready.',
+      text: 'Vertical or horizontal via Redis (RedisPresence + RedisDriver)',
+      tooltip: 'A single Colyseus process scales vertically. Horizontal multi-process scaling uses RedisPresence for shared state and RedisDriver for inter-process communication. Colyseus Cloud manages this automatically.',
       sourceUrl: 'https://docs.colyseus.io/scalability/',
     },
     devExperience: {

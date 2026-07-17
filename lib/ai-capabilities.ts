@@ -85,14 +85,15 @@ export const aiCapabilitiesData: Record<string, AICapabilities> = {
   },
   braincloud: {
     summary:
-      'brainCloud 6.0 (mid-2026) introduced brainBot, a Claude-powered AI assistant in its Design Portal. The runtime platform has no documented first-party machine learning.',
+      'brainCloud 6.0 (June 2026) shipped brainBot, a Claude-powered AI assistant in its Design Portal. A brainCloud MCP server (July 2026) enables AI tools to connect directly to brainCloud accounts. The runtime platform has no documented first-party machine learning.',
     devTooling:
-      'brainBot, powered by Anthropic’s Claude, lives in a context-aware side panel in the Design Portal (opt-in, paid plans). It writes and debugs Cloud Code, configures hooks and integrations, designs gamification, tunes segments, and helps with LiveOps setup. App and user data is not used for training, and PII is stripped before being sent to the model.',
+      'brainBot, powered by Anthropic’s Claude, lives in a context-aware side panel in the Design Portal (included with all paid plans, shipped June 2026). It writes and debugs Cloud Code, configures hooks and integrations, designs gamification, tunes segments, and helps with LiveOps setup. App and user data is not used for training, and PII is stripped before being sent to the model. A brainCloud MCP server (July 2026) exposes a hosted endpoint (mcp.braincloudservers.com) for AI tools to manage apps, deploy cloud code, and configure API hooks via natural language; access requires the Builder API on a paid plan.',
     platformAI:
       'None documented as first-party. Profanity moderation is a third-party WebPurify integration, analytics are descriptive dashboards, and matchmaking is standard rating-based logic with no documented ML.',
     sources: [
       { label: 'brainBot', url: 'https://getbraincloud.com/features/brainbot/' },
       { label: 'brainCloud 6.0 release', url: 'https://updates.braincloudservers.com/braincloud-6-0-with-brainbot-is-here-1x54Sk' },
+      { label: 'brainCloud MCP Server', url: 'https://updates.braincloudservers.com/' },
       { label: 'Profanity API (WebPurify)', url: 'https://docs.braincloudservers.com/api/capi/profanity/' },
     ],
   },
