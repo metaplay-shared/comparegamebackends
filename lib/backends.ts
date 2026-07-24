@@ -115,7 +115,7 @@ export const backends: Backend[] = [
     docsUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/',
     type: 'proprietary',
     pricingModel: 'usage-based',
-    pricingDetails: 'Free development mode (100K players per title, up to 10 titles). Pay-as-you-go ($0/month base), Standard ($99/month, $400 in meter credits), Premium ($1,999/month, $8,000 in meter credits). Foundation Mode: included at no cost for games shipped under an Xbox publishing agreement.',
+    pricingDetails: 'Free development mode (1,000 unique users per title, up to 10 titles). Pay-as-you-go ($0/month base), Standard ($99/month, $400 in meter credits), Premium ($1,999/month, $8,000 in meter credits). Foundation Mode: included at no cost for games shipped under an Xbox publishing agreement.',
     features: {
       authentication: { supported: true, description: 'Multiple auth methods including anonymous, platform-specific (Steam, Facebook, iOS, Google, PlayStation, Xbox), and direct PlayFab login. Players can link multiple accounts for cross-platform identity.', sourceUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/identity/player-identity/authentication/' },
       playerProfiles: { supported: true, description: 'Player profiles store Key/Value Pairs (KVPs) shareable across devices and games. Supports both title-specific Player Data and cross-title Publisher Data.', sourceUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/player-progression/player-data/' },
@@ -179,11 +179,12 @@ export const backends: Backend[] = [
     ],
     foundedYear: 2014,
     architectureLabel: 'Managed microservices platform',
-    lastUpdated: '2026-06',
+    lastUpdated: '2026-07',
     sources: [
       { label: 'Pricing', url: 'https://developer.microsoft.com/en-us/games/products/playfab/pricing' },
       { label: 'Documentation', url: 'https://learn.microsoft.com/en-us/gaming/playfab/what-is-playfab' },
       { label: 'SDKs', url: 'https://playfab.com/engineer/' },
+      { label: 'Development Mode limits', url: 'https://learn.microsoft.com/en-us/gaming/playfab/pricing/development-mode' },
     ],
   },
   {
@@ -209,7 +210,7 @@ export const backends: Backend[] = [
       scheduledContent: { supported: true, description: 'Satori supports scheduled content through Live Events (CRON-based), Feature Flag scheduling, and Message scheduling with configurable offsets relative to events.', sourceUrl: 'https://heroiclabs.com/docs/satori/concepts/live-events/' },
       virtualCurrency: { supported: true, description: 'Hiro Economy system manages multiple in-game currencies with atomic transaction processing. Supports configurable initial balances and player wallets for earned and purchased currencies.', sourceUrl: 'https://heroiclabs.com/docs/hiro/concepts/economy/' },
       inventorySystem: { supported: true, description: 'Hiro Inventory allows players to collect, upgrade, and consume items with configurable properties including max counts, stackability, consumption rewards, and inventory limits.', sourceUrl: 'https://heroiclabs.com/docs/hiro/concepts/inventory/' },
-      iapValidation: { supported: true, description: 'Nakama validates Apple App Store, Google Play, and Huawei purchases server-side. Features replay attack prevention, receipt binding, and real-time subscription notifications.', sourceUrl: 'https://heroiclabs.com/docs/nakama/concepts/iap-validation/' },
+      iapValidation: { supported: true, description: 'Nakama validates Apple App Store, Google Play, Huawei, and Samsung Galaxy Store purchases server-side. Features replay attack prevention, receipt binding, and real-time subscription notifications.', sourceUrl: 'https://github.com/heroiclabs/nakama/releases/tag/v3.40.0' },
       offers: { supported: true, description: 'Hiro Virtual Store enables in-game marketplaces with game currency or IAP purchases. Personalizer supports one-time offers, player-specific pricing, and VIP offers with A/B testing.', sourceUrl: 'https://heroiclabs.com/docs/hiro/concepts/economy/virtual-store/' },
       pushNotifications: { supported: true, description: 'Satori Messages support push via OneSignal, APNS, and FCM integrations, plus email and in-game inbox. Nakama provides in-app notifications. CRON or live event triggered scheduling.', sourceUrl: 'https://heroiclabs.com/docs/satori/concepts/messages/' },
       leaderboards: { supported: true, description: 'Nakama Leaderboards with unlimited scoreboards, configurable sort order, operators (set/best/incr/decr), CRON-based resets for seasons, record metadata, and authoritative mode.', sourceUrl: 'https://heroiclabs.com/docs/nakama/concepts/leaderboards/' },
@@ -262,7 +263,7 @@ export const backends: Backend[] = [
     ],
     foundedYear: 2014,
     architectureLabel: 'Composable open-source stack',
-    lastUpdated: '2026-02',
+    lastUpdated: '2026-07',
     sources: [
       { label: 'Heroic Labs', url: 'https://heroiclabs.com/' },
       { label: 'Nakama', url: 'https://heroiclabs.com/nakama/' },
@@ -270,6 +271,7 @@ export const backends: Backend[] = [
       { label: 'Hiro', url: 'https://heroiclabs.com/hiro/' },
       { label: 'Pricing', url: 'https://heroiclabs.com/pricing/' },
       { label: 'GitHub', url: 'https://github.com/heroiclabs/nakama' },
+      { label: 'Nakama v3.40.0 release notes', url: 'https://github.com/heroiclabs/nakama/releases/tag/v3.40.0' },
     ],
   },
   {
