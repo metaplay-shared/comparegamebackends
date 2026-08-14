@@ -199,9 +199,9 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       sourceUrl: 'https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-intro-flavors.html',
     },
     scalability: {
-      text: 'EC2 auto-scaling fleets with Spot instances',
-      tooltip: 'Fleets auto-scale based on player demand using EC2 instances. Spot instance support reduces costs by up to 90% for interruptible workloads, with automatic fallback to on-demand.',
-      sourceUrl: 'https://docs.aws.amazon.com/gameliftservers/latest/developerguide/fleets-autoscaling.html',
+      text: 'EC2 auto-scaling with scale-to-zero support',
+      tooltip: 'Fleets auto-scale based on player demand using EC2 instances. Spot instance support reduces costs by up to 90% for interruptible workloads. Scale-to-zero (added January 2026) drops fleet locations to zero instances during inactivity and provisions capacity automatically when game sessions are requested.',
+      sourceUrl: 'https://docs.aws.amazon.com/gameliftservers/latest/developerguide/fleets_scale-to-from-zero.html',
     },
     devExperience: {
       text: 'Local testing via GameLift Anywhere',
