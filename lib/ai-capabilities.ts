@@ -87,7 +87,7 @@ export const aiCapabilitiesData: Record<string, AICapabilities> = {
     summary:
       'brainCloud 6.0 (mid-2026) introduced brainBot, a Claude-powered AI assistant in its Design Portal. The runtime platform has no documented first-party machine learning.',
     devTooling:
-      'brainBot, powered by Anthropic’s Claude, lives in a context-aware side panel in the Design Portal (opt-in, paid plans). It writes and debugs Cloud Code, configures hooks and integrations, designs gamification, tunes segments, and helps with LiveOps setup. App and user data is not used for training, and PII is stripped before being sent to the model.',
+      ‘brainBot, powered by Anthropic’s Claude, lives in a context-aware side panel in the Design Portal (opt-in, paid plans). It writes and debugs Cloud Code, configures hooks and integrations, designs gamification, tunes segments, and helps with LiveOps setup. App and user data is not used for training, and PII is stripped before being sent to the model. A brainCloud MCP server (July 2026) allows AI coding tools to connect directly to a brainCloud account via OAuth, enabling management of apps, cloud code, hooks, and S2S servers through natural language.’,
     platformAI:
       'None documented as first-party. Profanity moderation is a third-party WebPurify integration, analytics are descriptive dashboards, and matchmaking is standard rating-based logic with no documented ML.',
     sources: [
@@ -100,7 +100,7 @@ export const aiCapabilitiesData: Record<string, AICapabilities> = {
     summary:
       'AccelByte has a strong AI-for-developers layer — two official MCP servers plus a CLI and workflow tooling — while in-product AI remains thin.',
     devTooling:
-      'Two official MCP servers (announced May 2026): an Extend SDK MCP server for symbol search and code reference across C#, Go, Java, and Python, and an AGS API MCP server for authenticated API discovery and execution. Both work with Claude, Cursor, and Copilot, alongside an AGS CLI and emerging YAML workflows.',
+      'Two official MCP servers (announced May 2026): an Extend SDK MCP server for symbol search and code reference across C#, Go, Java, and Python, and an AGS API MCP server for authenticated API discovery and execution. Both work with Claude, Cursor, and Copilot, alongside an AGS CLI. AccelByte Teammate (August 2026) is an AI agent skill for Claude Code, Codex, and Cursor that performs integration health checks, SDK upgrade impact analysis, and infrastructure sizing reviews, and proposes single-file code fixes.',
     platformAI:
       'Limited. Matchmaking is rule-based, and chat moderation combines manual review with rule-based auto-moderation and profanity filters. The AccelByte Intelligence Service describes an ML pipeline (churn, clustering, sentiment) as roadmap rather than a shipped feature.',
     sources: [

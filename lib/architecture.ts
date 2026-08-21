@@ -365,9 +365,9 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       sourceUrl: 'https://docs.braincloudservers.com/learn/introduction/',
     },
     aiCapabilities: {
-      text: 'brainBot portal assistant; no first-party ML',
-      tooltip: 'brainCloud 6.0 added brainBot, a Claude-powered assistant in the Design Portal that writes Cloud Code, configures integrations, and helps with LiveOps. There is no first-party ML; profanity moderation is a third-party WebPurify integration.',
-      sourceUrl: 'https://getbraincloud.com/features/brainbot/',
+      text: 'brainBot portal assistant + MCP server; no first-party ML',
+      tooltip: 'brainCloud 6.0 added brainBot, a Claude-powered assistant in the Design Portal that writes Cloud Code, configures integrations, and helps with LiveOps. A brainCloud MCP server (July 2026) lets AI coding tools connect to a brainCloud account via OAuth to manage apps and write cloud code. There is no first-party ML; profanity moderation is a third-party WebPurify integration.',
+      sourceUrl: 'https://updates.braincloudservers.com',
     },
   },
   accelbyte: {
@@ -417,9 +417,9 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       sourceUrl: 'https://docs.accelbyte.io/gaming-services/getting-started/',
     },
     aiCapabilities: {
-      text: 'Two official MCP servers; thin in-product AI',
-      tooltip: 'AccelByte ships two official MCP servers (Extend SDK and AGS API) for AI-assisted development with Claude and Cursor. In-product AI is limited to rule-based matchmaking and moderation, with the AccelByte Intelligence Service ML pipeline still on the roadmap.',
-      sourceUrl: 'https://docs.accelbyte.io/gaming-services/modules/foundations/extend/app-in-depth-topics/extend-mcp-servers/',
+      text: 'Two MCP servers + Teammate agent skill; thin in-product AI',
+      tooltip: 'AccelByte ships two official MCP servers (Extend SDK and AGS API) for AI-assisted development with Claude and Cursor, plus AccelByte Teammate (August 2026) — an AI agent skill for Claude Code, Codex, and Cursor that performs integration health checks, SDK upgrade impact analysis, and infrastructure sizing reviews. In-product AI is limited to rule-based matchmaking and moderation, with the AccelByte Intelligence Service ML pipeline still on the roadmap.',
+      sourceUrl: 'https://accelbyte.io/blog/meet-accelbyte-ai-teammate',
     },
   },
 };
