@@ -9,13 +9,14 @@ export const aiCapabilitiesData: Record<string, AICapabilities> = {
     summary:
       'Metaplay concentrates its AI investment in developer and operator tooling rather than in-game machine learning. Its "Ask / Connect / Build" stack spans a docs chatbot, two MCP servers, and an SDK-skills agent.',
     devTooling:
-      'MetaplayGPT (a hosted docs chatbot), a Docs MCP server giving tools like Claude Code and Cursor read-only access to documentation, SDK source, and samples, a Portal MCP server for role-scoped access to live environments, and the Metaplay Agent — official SDK "skills" installed via the CLI that turn a coding agent into a Metaplay developer. The Agent is in public preview.',
+      'MetaplayGPT (a hosted docs chatbot), a Docs MCP server giving tools like Claude Code and Cursor read-only access to documentation, SDK source, and samples, a Portal MCP server for role-scoped access to live environments, and the Metaplay Agent — official SDK "skills" installed via the CLI that turn a coding agent into a Metaplay developer. The Agent is generally available as of Release 38 (Aug 2026).',
     platformAI:
       'None documented. Matchmaking, segmentation, and A/B testing are rules- and config-based, and analytics events are streamed to external stores (BigQuery, S3) for the studio’s own pipeline. Metaplay positions itself as "AI-ready" tooling rather than "AI-powered" in-product ML.',
     sources: [
       { label: 'AI Assistants (docs)', url: 'https://docs.metaplay.io/miscellaneous/ai-assistants/' },
       { label: 'Metaplay Agent', url: 'https://docs.metaplay.io/miscellaneous/ai-assistants/metaplay-agent' },
       { label: 'Announcing Metaplay AI', url: 'https://www.metaplay.io/blog/announcing-metaplay-ai' },
+      { label: 'Release 38 (Agent GA)', url: 'https://docs.metaplay.io/miscellaneous/sdk-updates/release-notes/release-38' },
     ],
   },
   playfab: {
@@ -85,13 +86,13 @@ export const aiCapabilitiesData: Record<string, AICapabilities> = {
   },
   braincloud: {
     summary:
-      'brainCloud 6.0 (mid-2026) introduced brainBot, a Claude-powered AI assistant in its Design Portal. The runtime platform has no documented first-party machine learning.',
+      'brainCloud 6.0 (mid-2026) introduced brainBot, a Claude-powered AI assistant in the Design Portal. A brainCloud MCP server (Jul 2026) extends AI developer tooling beyond the portal. The runtime platform has no documented first-party machine learning.',
     devTooling:
-      'brainBot, powered by Anthropic’s Claude, lives in a context-aware side panel in the Design Portal (opt-in, paid plans). It writes and debugs Cloud Code, configures hooks and integrations, designs gamification, tunes segments, and helps with LiveOps setup. App and user data is not used for training, and PII is stripped before being sent to the model.',
+      'brainBot, powered by Anthropic’s Claude, lives in a context-aware side panel in the Design Portal (opt-in, paid plans). It writes and debugs Cloud Code, configures hooks and integrations, designs gamification, tunes segments, and helps with LiveOps setup. App and user data is not used for training, and PII is stripped before being sent to the model. A brainCloud MCP server (Jul 2026) lets AI coding tools (Claude, Cursor, Windsurf) connect directly to a brainCloud account via OAuth: it writes and deploys cloud code scripts, configures API hooks, explores brainCloud APIs, and syncs cloud code files locally. Team-level cost caps apply and PII is stripped before transmission.',
     platformAI:
       'None documented as first-party. Profanity moderation is a third-party WebPurify integration, analytics are descriptive dashboards, and matchmaking is standard rating-based logic with no documented ML.',
     sources: [
-      { label: 'brainBot', url: 'https://getbraincloud.com/features/brainbot/' },
+      { label: 'brainBot + MCP Server', url: 'https://getbraincloud.com/features/brainbot/' },
       { label: 'brainCloud 6.0 release', url: 'https://updates.braincloudservers.com/braincloud-6-0-with-brainbot-is-here-1x54Sk' },
       { label: 'Profanity API (WebPurify)', url: 'https://docs.braincloudservers.com/api/capi/profanity/' },
     ],
