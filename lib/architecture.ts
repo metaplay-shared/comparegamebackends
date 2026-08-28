@@ -278,9 +278,9 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       sourceUrl: 'https://docs.colyseus.io/state/schema/',
     },
     integration: {
-      text: 'Multiplayer framework only; no backend features',
-      tooltip: 'Colyseus handles real-time rooms and state sync. For player persistence, authentication, economy, analytics, and live ops, you must integrate third-party services or build your own.',
-      sourceUrl: 'https://docs.colyseus.io/database/',
+      text: 'Multiplayer framework with basic persistence (v0.18)',
+      tooltip: 'Colyseus handles real-time rooms and state sync. @colyseus/database (v0.18) provides first-party persistence via Drizzle ORM. For authentication, economy, analytics, and live ops, third-party services are required.',
+      sourceUrl: 'https://colyseus.io/blog/colyseus-018-is-here/',
     },
     sourceAccess: {
       text: 'Full source (MIT license)',
@@ -365,8 +365,8 @@ export const architectureData: Record<string, Record<string, CellData>> = {
       sourceUrl: 'https://docs.braincloudservers.com/learn/introduction/',
     },
     aiCapabilities: {
-      text: 'brainBot portal assistant; no first-party ML',
-      tooltip: 'brainCloud 6.0 added brainBot, a Claude-powered assistant in the Design Portal that writes Cloud Code, configures integrations, and helps with LiveOps. There is no first-party ML; profanity moderation is a third-party WebPurify integration.',
+      text: 'brainBot portal assistant + MCP server; no first-party ML',
+      tooltip: 'brainCloud 6.0 added brainBot, a Claude-powered assistant in the Design Portal for Cloud Code, integrations, and LiveOps. A brainCloud MCP server (Jul 2026) lets AI coding tools connect directly to a brainCloud account for script authoring and API exploration. There is no first-party ML; profanity moderation is a third-party WebPurify integration.',
       sourceUrl: 'https://getbraincloud.com/features/brainbot/',
     },
   },
