@@ -209,7 +209,7 @@ export const backends: Backend[] = [
       scheduledContent: { supported: true, description: 'Satori supports scheduled content through Live Events (CRON-based), Feature Flag scheduling, and Message scheduling with configurable offsets relative to events.', sourceUrl: 'https://heroiclabs.com/docs/satori/concepts/live-events/' },
       virtualCurrency: { supported: true, description: 'Hiro Economy system manages multiple in-game currencies with atomic transaction processing. Supports configurable initial balances and player wallets for earned and purchased currencies.', sourceUrl: 'https://heroiclabs.com/docs/hiro/concepts/economy/' },
       inventorySystem: { supported: true, description: 'Hiro Inventory allows players to collect, upgrade, and consume items with configurable properties including max counts, stackability, consumption rewards, and inventory limits.', sourceUrl: 'https://heroiclabs.com/docs/hiro/concepts/inventory/' },
-      iapValidation: { supported: true, description: 'Nakama validates Apple App Store, Google Play, and Huawei purchases server-side. Features replay attack prevention, receipt binding, and real-time subscription notifications.', sourceUrl: 'https://heroiclabs.com/docs/nakama/concepts/iap-validation/' },
+      iapValidation: { supported: true, description: 'Nakama validates Apple App Store, Google Play, Huawei, and Samsung Galaxy Store purchases server-side. Features replay attack prevention, receipt binding, and real-time subscription notifications.', sourceUrl: 'https://heroiclabs.com/docs/nakama/getting-started/release-notes/' },
       offers: { supported: true, description: 'Hiro Virtual Store enables in-game marketplaces with game currency or IAP purchases. Personalizer supports one-time offers, player-specific pricing, and VIP offers with A/B testing.', sourceUrl: 'https://heroiclabs.com/docs/hiro/concepts/economy/virtual-store/' },
       pushNotifications: { supported: true, description: 'Satori Messages support push via OneSignal, APNS, and FCM integrations, plus email and in-game inbox. Nakama provides in-app notifications. CRON or live event triggered scheduling.', sourceUrl: 'https://heroiclabs.com/docs/satori/concepts/messages/' },
       leaderboards: { supported: true, description: 'Nakama Leaderboards with unlimited scoreboards, configurable sort order, operators (set/best/incr/decr), CRON-based resets for seasons, record metadata, and authoritative mode.', sourceUrl: 'https://heroiclabs.com/docs/nakama/concepts/leaderboards/' },
@@ -262,7 +262,7 @@ export const backends: Backend[] = [
     ],
     foundedYear: 2014,
     architectureLabel: 'Composable open-source stack',
-    lastUpdated: '2026-02',
+    lastUpdated: '2026-09',
     sources: [
       { label: 'Heroic Labs', url: 'https://heroiclabs.com/' },
       { label: 'Nakama', url: 'https://heroiclabs.com/nakama/' },
@@ -270,6 +270,7 @@ export const backends: Backend[] = [
       { label: 'Hiro', url: 'https://heroiclabs.com/hiro/' },
       { label: 'Pricing', url: 'https://heroiclabs.com/pricing/' },
       { label: 'GitHub', url: 'https://github.com/heroiclabs/nakama' },
+      { label: 'Release Notes', url: 'https://heroiclabs.com/docs/nakama/getting-started/release-notes/' },
     ],
   },
   {
@@ -474,7 +475,7 @@ export const backends: Backend[] = [
       playerBehaviorTracking: false,
       revenueAnalytics: false,
       customDashboards: false,
-      multiplayer: { supported: true, description: 'Core feature: room-based multiplayer sessions with automatic state synchronization using delta compression, WebSocket/WebTransport communication, real-time and turn-based support.', sourceUrl: 'https://docs.colyseus.io/' },
+      multiplayer: { supported: true, description: 'Core feature: room-based multiplayer sessions with automatic state synchronization using delta compression, WebSocket/WebTransport communication, real-time and turn-based support. Version 0.17 (April 2026) added automatic client reconnection, preserving room state and callbacks across network interruptions.', sourceUrl: 'https://colyseus.io/blog/colyseus-017-is-here/' },
       matchmaking: { supported: true, description: 'Comprehensive Match-maker API with joinOrCreate(), join(), joinById(), and built-in QueueRoom for ranked matchmaking with filters, sorting, team grouping, and priority escalation.', sourceUrl: 'https://docs.colyseus.io/matchmaker' },
       chat: { supported: true, description: 'Chat functionality via room messaging system using send() and broadcast() methods. RelayRoom provides foundation for chat-style communication between clients.', sourceUrl: 'https://docs.colyseus.io/room/built-in/relay' },
       cloudSave: false,
@@ -516,11 +517,12 @@ export const backends: Backend[] = [
     ],
     foundedYear: 2015,
     architectureLabel: 'Authoritative multiplayer framework',
-    lastUpdated: '2026-02',
+    lastUpdated: '2026-09',
     sources: [
       { label: 'Pricing', url: 'https://colyseus.io/pricing' },
       { label: 'Documentation', url: 'https://docs.colyseus.io/' },
       { label: 'GitHub', url: 'https://github.com/colyseus/colyseus' },
+      { label: '0.17 release notes', url: 'https://colyseus.io/blog/colyseus-017-is-here/' },
     ],
   },
   {
@@ -533,7 +535,7 @@ export const backends: Backend[] = [
     docsUrl: 'https://docs.braincloudservers.com',
     type: 'proprietary',
     pricingModel: 'freemium',
-    pricingDetails: 'Free Development tier (100 DAU, 1M API calls). Production plans: Lite $15/month, Standard $30/month, Business $99/month, Business Plus $199/month. API overage billed per million calls.',
+    pricingDetails: 'Free Development tier (100 DAU, 1M API calls). Base plans: Lite $15/month, Standard $30/month, Business $99/month. Plus plans (adds RTT, Deep Data, and Hosting usage): Lite Plus $25/month, Standard Plus $50/month, Business Plus $199/month. Bulk+ pre-purchased plans for high volume (100M–1B API calls, from $955/month). API overage billed per million calls.',
     features: {
       authentication: { supported: true, description: 'Multiple auth methods: Anonymous (device GUID), Email+Password, Universal ID, and third-party (Facebook, Twitter, Steam, Google Play, Apple Game Center, custom). Supports merging accounts and multiple identities.', sourceUrl: 'https://docs.braincloudservers.com/learn/key-concepts/authentication/' },
       playerProfiles: { supported: true, description: 'Player State service manages user info including name, contact email, user attributes (key+value pairs), and timed status effects. Comprehensive state management via ReadUserState and UpdatePlayerName.', sourceUrl: 'https://docs.braincloudservers.com/api/capi/playerstate/' },
@@ -598,7 +600,7 @@ export const backends: Backend[] = [
     ],
     foundedYear: 2011,
     architectureLabel: 'Managed BaaS with script authority',
-    lastUpdated: '2026-02',
+    lastUpdated: '2026-09',
     sources: [
       { label: 'Pricing', url: 'https://getbraincloud.com/pricing/' },
       { label: 'Documentation', url: 'https://docs.braincloudservers.com/' },
