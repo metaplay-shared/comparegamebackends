@@ -9,7 +9,7 @@ export const aiCapabilitiesData: Record<string, AICapabilities> = {
     summary:
       'Metaplay concentrates its AI investment in developer and operator tooling rather than in-game machine learning. Its "Ask / Connect / Build" stack spans a docs chatbot, two MCP servers, and an SDK-skills agent.',
     devTooling:
-      'MetaplayGPT (a hosted docs chatbot), a Docs MCP server giving tools like Claude Code and Cursor read-only access to documentation, SDK source, and samples, a Portal MCP server for role-scoped access to live environments, and the Metaplay Agent — official SDK "skills" installed via the CLI that turn a coding agent into a Metaplay developer. The Agent is in public preview.',
+      'MetaplayGPT (a hosted docs chatbot), a Docs MCP server giving tools like Claude Code and Cursor read-only access to documentation, SDK source, and samples, a Portal MCP server for role-scoped access to live environments, and the Metaplay Agent — official SDK "skills" installed via the CLI that turn a coding agent into a Metaplay developer. The Agent shipped with SDK Release 38 (August 2026).',
     platformAI:
       'None documented. Matchmaking, segmentation, and A/B testing are rules- and config-based, and analytics events are streamed to external stores (BigQuery, S3) for the studio’s own pipeline. Metaplay positions itself as "AI-ready" tooling rather than "AI-powered" in-product ML.',
     sources: [
