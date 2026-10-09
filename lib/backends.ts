@@ -115,7 +115,7 @@ export const backends: Backend[] = [
     docsUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/',
     type: 'proprietary',
     pricingModel: 'usage-based',
-    pricingDetails: 'Free development mode (100K players per title, up to 10 titles). Pay-as-you-go ($0/month base), Standard ($99/month, $400 in meter credits), Premium ($1,999/month, $8,000 in meter credits). Foundation Mode: included at no cost for games shipped under an Xbox publishing agreement.',
+    pricingDetails: 'Free Development Mode (1,000 unique users per title, up to 10 titles; being replaced by Foundation Mode as of March 11, 2026). Pay-as-you-go ($0/month base), Standard ($99/month, $400 in meter credits), Premium ($1,999/month, $8,000 in meter credits). Foundation Mode: included at no cost for games shipped under an Xbox publishing agreement.',
     features: {
       authentication: { supported: true, description: 'Multiple auth methods including anonymous, platform-specific (Steam, Facebook, iOS, Google, PlayStation, Xbox), and direct PlayFab login. Players can link multiple accounts for cross-platform identity.', sourceUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/identity/player-identity/authentication/' },
       playerProfiles: { supported: true, description: 'Player profiles store Key/Value Pairs (KVPs) shareable across devices and games. Supports both title-specific Player Data and cross-title Publisher Data.', sourceUrl: 'https://learn.microsoft.com/en-us/gaming/playfab/player-progression/player-data/' },
@@ -166,7 +166,7 @@ export const backends: Backend[] = [
     gameTypes: ['f2p-mobile', 'live-service-pc', 'competitive', 'casual-social'],
     platforms: ['unity', 'unreal', 'custom', 'html5'],
     strengths: [
-      'Free development tier supporting up to 100K players per title',
+      'Free Development Mode with no monthly bill, up to 1,000 unique users per title and 10 titles',
       'Azure and Xbox platform integration',
       'SDKs for Unity, Unreal, C/C++, C#, and console platforms',
       'Documentation hosted on Microsoft Learn with API references',
@@ -179,9 +179,10 @@ export const backends: Backend[] = [
     ],
     foundedYear: 2014,
     architectureLabel: 'Managed microservices platform',
-    lastUpdated: '2026-06',
+    lastUpdated: '2026-10',
     sources: [
       { label: 'Pricing', url: 'https://developer.microsoft.com/en-us/games/products/playfab/pricing' },
+      { label: 'Development Mode limits', url: 'https://learn.microsoft.com/en-us/gaming/playfab/pricing/development-mode' },
       { label: 'Documentation', url: 'https://learn.microsoft.com/en-us/gaming/playfab/what-is-playfab' },
       { label: 'SDKs', url: 'https://playfab.com/engineer/' },
     ],
